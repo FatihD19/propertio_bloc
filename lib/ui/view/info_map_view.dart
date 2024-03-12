@@ -49,7 +49,7 @@ class InfoMapView extends StatelessWidget {
                       'https://www.google.com/maps?q=$lantitude,$longitude'));
             },
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               width: 153,
               height: 32,
               decoration: BoxDecoration(
@@ -69,7 +69,7 @@ class InfoMapView extends StatelessWidget {
                   Text(isDenah == true ? 'Lihat Denah' : 'Lihat Map',
                       style: buttonTextStyle.copyWith(
                           fontWeight: bold, fontSize: 12)),
-                  SizedBox(width: 8),
+                  SizedBox(width: 6),
                   Image.asset('assets/ic_show_map.png'),
                 ],
               ),

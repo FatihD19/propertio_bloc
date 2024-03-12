@@ -56,7 +56,8 @@ class AgentCard extends StatelessWidget {
                             baseColor: Colors.grey[300]!,
                             highlightColor: Colors.grey[100]!,
                             child: Container(
-                              height: 280,
+                              width: 163,
+                              height: 126,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color(0xffF3F3F3),

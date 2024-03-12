@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:propertio_mobile/shared/api_path.dart';
 import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_mobile/ui/view/virtual_view.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -103,7 +104,11 @@ class _InfoPromoCarouselState extends State<InfoPromoCarousel> {
                 left: MediaQuery.of(context).size.width / 2 - 76,
                 child: GestureDetector(
                   onTap: () {
-                    launchUrl(Uri.parse('${widget.virtualUrl}'));
+                    // launchUrl(Uri.parse('${widget.virtualUrl}'));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return VirtualView();
+                    }));
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),

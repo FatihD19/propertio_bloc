@@ -29,7 +29,8 @@ class ProjectRemoteDataSource {
   Future<Either<String, DetailProjectResponseModel>> getDetailProject(
       String slug) async {
     var url = Uri.parse(ApiPath.baseUrl + '/v1/project/$slug');
-    final response = await http.get(url);
+    final token = await AuthLocalDataSource.getToken();
+    final response = await http.get(url, headers: {'Authorization': token});
 
     print(response.body);
     if (response.statusCode == 200) {

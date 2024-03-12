@@ -36,66 +36,65 @@ class _MortgageCalculatorState extends State<MortgageCalculator> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text('Simulasi Kredit Rumah'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            LoanSimulationForm(),
-            TextFormField(
-              controller: propertyPriceController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Harga Properti (Rp)'),
-            ),
-            TextFormField(
-              controller: downPaymentController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Uang Muka (Rp)'),
-            ),
-            TextFormField(
-              controller: interestRateController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Bunga (%)'),
-            ),
-            TextFormField(
-              controller: loanTermController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Jangka Waktu (tahun)'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                calculateMonthlyInstallment();
-              },
-              child: Text('Hitung Angsuran Bulanan'),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Angsuran per Bulan (${loanTermController.text} tahun): $monthlyInstallment',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Angsuran per Bulan dalam 5, 10, 15, 20, dan 30 tahun:',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                for (var entry in installmentResults.entries)
-                  Text(
-                    '${entry.key} tahun: ${entry.value}',
-                    style: TextStyle(fontSize: 16),
-                  ),
-              ],
-            ),
-            SizedBox(height: 20),
-          ],
-        ),
-      ),
+
+      body: MortgageSimulationForm(),
+      // body: Padding(
+      //   padding: EdgeInsets.all(16.0),
+      //   child: ListView(
+      //     children: [
+      //       MortgageSimulationForm(),
+      //       TextFormField(
+      //         controller: propertyPriceController,
+      //         keyboardType: TextInputType.number,
+      //         decoration: InputDecoration(labelText: 'Harga Properti (Rp)'),
+      //       ),
+      //       TextFormField(
+      //         controller: downPaymentController,
+      //         keyboardType: TextInputType.number,
+      //         decoration: InputDecoration(labelText: 'Uang Muka (Rp)'),
+      //       ),
+      //       TextFormField(
+      //         controller: interestRateController,
+      //         keyboardType: TextInputType.number,
+      //         decoration: InputDecoration(labelText: 'Bunga (%)'),
+      //       ),
+      //       TextFormField(
+      //         controller: loanTermController,
+      //         keyboardType: TextInputType.number,
+      //         decoration: InputDecoration(labelText: 'Jangka Waktu (tahun)'),
+      //       ),
+      //       SizedBox(height: 20),
+      //       ElevatedButton(
+      //         onPressed: () {
+      //           calculateMonthlyInstallment();
+      //         },
+      //         child: Text('Hitung Angsuran Bulanan'),
+      //       ),
+      //       SizedBox(height: 20),
+      //       Text(
+      //         'Angsuran per Bulan (${loanTermController.text} tahun): $monthlyInstallment',
+      //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      //       ),
+      //       SizedBox(height: 20),
+      //       Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         children: [
+      //           Text(
+      //             'Angsuran per Bulan dalam 5, 10, 15, 20, dan 30 tahun:',
+      //             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      //           ),
+      //           SizedBox(height: 10),
+      //           for (var entry in installmentResults.entries)
+      //             Text(
+      //               '${entry.key} tahun: ${entry.value}',
+      //               style: TextStyle(fontSize: 16),
+      //             ),
+      //         ],
+      //       ),
+      //       SizedBox(height: 20),
+      //     ],
+      //   ),
+      // ),
     );
   }
 
@@ -136,112 +135,108 @@ String _formatCurrency(double amount) {
   return formattedString.currencyFormatRp;
 }
 
-class LoanSimulationForm extends StatefulWidget {
-  @override
-  State<LoanSimulationForm> createState() => _LoanSimulationFormState();
-}
-
-class _LoanSimulationFormState extends State<LoanSimulationForm> {
-  final TextEditingController propertyPriceController = TextEditingController();
-
+class MortgageSimulationForm extends StatelessWidget {
+  final MortgageSimulationCubit cubit = MortgageSimulationCubit();
+  final TextEditingController propertyPriceController =
+      TextEditingController(text: '500000000');
   final TextEditingController downPaymentController =
       TextEditingController(text: '100000000');
-
   final TextEditingController interestRateController =
       TextEditingController(text: '7');
-
   final TextEditingController loanTermController =
-      TextEditingController(text: '8');
+      TextEditingController(text: '14');
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          TextField(
-            controller: propertyPriceController,
-            decoration: InputDecoration(labelText: 'Property Price'),
-            keyboardType: TextInputType.number,
-          ),
-          TextField(
-            controller: propertyPriceController,
-            onChanged: (value) {
-              propertyPriceController.value = TextEditingValue(
-                text: value.replaceAll(',', '.'),
-                selection: TextSelection.collapsed(offset: value.length),
-              );
-            },
-            decoration: InputDecoration(
-                labelText: 'Property Price', prefix: Text('Rp ')),
-            inputFormatters: <TextInputFormatter>[
-              CurrencyTextInputFormatter(
-                decimalDigits: 0,
-                symbol: '',
-              ),
-            ],
-            keyboardType: TextInputType.number,
-          ),
-          TextField(
-            controller: downPaymentController,
-            decoration: InputDecoration(labelText: 'Down Payment'),
-            keyboardType: TextInputType.number,
-          ),
-          TextField(
-            controller: interestRateController,
-            decoration: InputDecoration(labelText: 'Interest Rate (%)'),
-            keyboardType: TextInputType.number,
-          ),
-          TextField(
-            controller: loanTermController,
-            decoration: InputDecoration(labelText: 'Loan Term (years)'),
-            keyboardType: TextInputType.number,
-          ),
-          SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {
-              final input = LoanSimulationInput(
-                propertyPrice: double.parse(
-                    propertyPriceController.text.replaceAll('.', '')),
-                downPayment: double.parse(downPaymentController.text),
-                interestRate: double.parse(interestRateController.text),
-                loanTerm: int.parse(loanTermController.text),
-              );
-              context.read<KprCubit>().calculate(input);
-              print(propertyPriceController.text);
-            },
-            child: Text('Calculate'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              context.read<KprCubit>().reset();
-            },
-            child: Text('reset'),
-          ),
-          SizedBox(height: 16),
-          BlocBuilder<KprCubit, KprState>(
-            builder: (context, state) {
-              if (state is KprLoading) {
-                return CircularProgressIndicator();
-              } else if (state is KprLoaded) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    for (var entry
-                        in state.installmentResults.installmentByYear.entries)
-                      Text(
-                          '${entry.key} years: ${_formatCurrency(entry.value)}'),
-                  ],
-                );
-              } else if (state is KprError) {
-                return Text(state.message);
-              }
-              return Container();
-            },
-          ),
-        ],
-      ),
-    );
+    return BlocProvider(
+        create: (context) => cubit,
+        child: Scaffold(
+          appBar: AppBar(title: Text('Mortgage Simulation')),
+          body: BlocProvider(
+              create: (context) => MortgageSimulationCubit(),
+              child:
+                  BlocBuilder<MortgageSimulationCubit, MortgageSimulationState>(
+                builder: (context, state) {
+                  return Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: ListView(
+                      children: [
+                        TextField(
+                          controller: propertyPriceController,
+                          keyboardType: TextInputType.number,
+                          decoration:
+                              InputDecoration(labelText: 'Harga Properti (Rp)'),
+                        ),
+                        TextField(
+                          controller: downPaymentController,
+                          keyboardType: TextInputType.number,
+                          decoration:
+                              InputDecoration(labelText: 'Uang Muka (Rp)'),
+                        ),
+                        TextField(
+                          controller: interestRateController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(labelText: 'Bunga (%)'),
+                        ),
+                        TextField(
+                          controller: loanTermController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              labelText: 'Jangka Waktu (Tahun)'),
+                        ),
+                        SizedBox(height: 16.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            double propertyPrice =
+                                double.parse(propertyPriceController.text);
+                            double downPayment =
+                                double.parse(downPaymentController.text);
+                            double interestRate =
+                                double.parse(interestRateController.text);
+                            int loanTerm = int.parse(loanTermController.text);
+
+                            MortgageSimulationRequest request =
+                                MortgageSimulationRequest(
+                              propertyPrice: propertyPrice,
+                              downPayment: downPayment,
+                              interestRate: interestRate,
+                              loanTerm: loanTerm,
+                            );
+
+                            BlocProvider.of<MortgageSimulationCubit>(context)
+                                .calculateMortgage(request);
+                          },
+                          child: Text('Hitung'),
+                        ),
+                        SizedBox(height: 16.0),
+                        Text(
+                          'Hasil Simulasi:',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8.0),
+                        if (state is MortgageSimulationLoaded)
+                          for (int i = 0;
+                              i < state.result.monthlyInstallments.length;
+                              i++)
+                            Text(
+                              'Angsuran per Bulan (${i + 1} tahun): ${_formatCurrency(state.result.monthlyInstallments[i])}',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                        // Column(
+                        //   children: state.result.monthlyInstallments
+                        //       .map((e) => Text(
+                        //           'Angsuran per Bulan ( tahun): ${_formatCurrency(e)}',
+                        //           style: TextStyle(
+                        //               fontSize: 18,
+                        //               fontWeight: FontWeight.bold)))
+                        //       .toList(),
+                        // ),
+                      ],
+                    ),
+                  );
+                },
+              )),
+        ));
   }
 }

@@ -23,10 +23,10 @@ class SimulasiKprPage extends StatefulWidget {
 
 class _SimulasiKprPageState extends State<SimulasiKprPage> {
   int _sliderVal = 1;
-  final TextEditingController propertyPriceController = TextEditingController();
-  final TextEditingController downPaymentController = TextEditingController();
-  final TextEditingController interestRateController = TextEditingController();
-  final TextEditingController loanTermController = TextEditingController();
+  TextEditingController propertyPriceController = TextEditingController();
+  TextEditingController downPaymentController = TextEditingController();
+  TextEditingController interestRateController = TextEditingController();
+  TextEditingController loanTermController = TextEditingController();
   double downPaymentPercen = 0;
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,7 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
       return Column(
         children: [
           CustomTextField(
+              isNumber: true,
               title: 'Harga Properti',
               hintText: 'Harga Properti',
               mandatory: false,
@@ -42,6 +43,7 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
                   Text("Rp. ", style: primaryTextStyle.copyWith(fontSize: 16))),
           SizedBox(height: 8),
           CustomTextField(
+            isNumber: true,
             controller: interestRateController,
             title: 'Suku Bunga',
             hintText: 'Suku Bunga',
@@ -92,6 +94,7 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
                   Container(
                     width: 75,
                     child: CustomTextField(
+                      isNumber: true,
                       controller: TextEditingController(
                           text: '${downPaymentPercen.toInt()}'),
                       suffix: Text('%',
@@ -102,6 +105,7 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
                   SizedBox(width: 8),
                   Expanded(
                       child: CustomTextField(
+                    isNumber: true,
                     prefix: Text("Rp. ",
                         style: primaryTextStyle.copyWith(fontSize: 16)),
                     hintText: 'Rp.100.000.000',
@@ -121,6 +125,7 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
               ),
               SizedBox(height: 8),
               CustomTextField(
+                isNumber: true,
                 suffix: Text('Tahun',
                     style: primaryTextStyle.copyWith(fontSize: 16)),
                 controller: loanTermController,
@@ -132,16 +137,29 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
               CustomButton(
                   text: 'Mulai Simulasikan',
                   onPressed: () {
-                    final input = LoanSimulationInput(
-                      propertyPrice: double.parse(
-                          propertyPriceController.text.replaceAll('.', '')),
-                      downPayment: double.parse(
-                          downPaymentController.text.replaceAll('.', '')),
-                      interestRate: double.parse(interestRateController.text),
-                      loanTerm: int.parse(loanTermController.text),
-                    );
-                    context.read<KprCubit>().calculate(input);
+                    context.read<KprCubit>().calculate(LoanSimulationInput(
+                          propertyPrice: double.parse(
+                              propertyPriceController.text.replaceAll('.', '')),
+                          downPayment: double.parse(
+                              downPaymentController.text.replaceAll('.', '')),
+                          interestRate:
+                              double.parse(interestRateController.text),
+                          loanTerm: int.parse(loanTermController.text),
+                        ));
                     print(propertyPriceController.text);
+                    print(loanTermController.text);
+                  }),
+              SizedBox(height: 8),
+              CustomButton(
+                  text: 'Reset',
+                  onPressed: () {
+                    setState(() {});
+                    context.read<KprCubit>().reset();
+                    propertyPriceController.clear();
+                    downPaymentController.clear();
+                    interestRateController.clear();
+                    loanTermController.clear();
+                    downPaymentPercen = 0;
                   }),
             ],
           ),
@@ -249,24 +267,57 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
                 return CircularProgressIndicator();
               } else if (state is KprLoaded) {
                 return Center(
-                  child: Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
+                  child: Column(
                     children: [
                       ringkasan(
-                          '${_formatCurrency(state.installmentResults.summaryPrincipalLoan)}',
-                          '${_formatCurrency(state.installmentResults.summaryInterestPrice)}',
-                          '${_formatCurrency(state.installmentResults.summaryTotalLoan)}'),
-                      for (var entry
-                          in state.installmentResults.installmentByYear.entries)
-                        // Text(
-                        //     '${entry.key} years: ${_formatCurrency(entry.value)}'),
-                        itemAngsuran(
-                            _formatCurrency(entry.value), entry.key.toString(),
-                            isSelected:
-                                entry.key.toString() == loanTermController.text
-                                    ? true
-                                    : false),
+                          _formatCurrency(
+                              state.installmentResults.summaryPrincipalLoan!),
+                          _formatCurrency(
+                              state.installmentResults.summaryInterestPrice!),
+                          _formatCurrency(
+                              state.installmentResults.summaryTotalLoan!)),
+                      SizedBox(height: 12),
+                      GridView(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                  childAspectRatio: 1.3),
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: state.installmentResults.installmentByYear!
+                              .map((e) => itemAngsuran(
+                                  _formatCurrency(e.installment!),
+                                  e.year.toString(),
+                                  isSelected: loanTermController.text ==
+                                          e.year.toString()
+                                      ? true
+                                      : false))
+                              .toList()
+                          // children: [
+
+                          //   // itemAngsuran(
+                          //   //     _formatCurrency(state
+                          //   //         .installmentResults.monthlyInstallment!),
+                          //   //     loanTermController.text,
+                          //   //     isSelected: true),
+
+                          //   // itemAngsuran(
+                          //   //     _formatCurrency(state
+                          //   //         .installmentResults.monthlyInstallment),
+                          //   //     loanTermController.text,
+                          //   //     isSelected: true),
+                          //   // for (var entry in state
+                          //   //     .installmentResults.installmentByYear.entries)
+                          //   //   itemAngsuran(_formatCurrency(entry.value),
+                          //   //       entry.key.toString(),
+                          //   //       isSelected: entry.key.toString() ==
+                          //   //               loanTermController.text
+                          //   //           ? true
+                          //   //           : false),
+                          // ]
+                          )
                     ],
                   ),
                 );
@@ -298,7 +349,7 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
       );
     }
 
-    Widget itemFaq() {
+    Widget itemFaq(String title, String message) {
       return Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -308,15 +359,13 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
           child: ExpansionTile(
-            title: Text('Apa yang dimaksud dengan KPR?',
-                style: primaryTextStyle.copyWith(fontSize: 14)),
+            title: Text(title, style: primaryTextStyle.copyWith(fontSize: 14)),
             children: [
               Container(
                 padding: EdgeInsets.only(left: 16, bottom: 16),
                 child: Column(
                   children: [
-                    Text(
-                        'Secara umum, ada dua jenis suku bunga KPR yang diberlakukan bank, yaitu: Fixed rate, Floating rate. Suku bunga tetap dikenakan kepada debitur menggunakan patokan angka tertentu selama tenor yang telah ditentukan. Besar bunga yang ditetapkan kepada debitur mengikuti fluktuasi suku bunga acuan (BI rate).',
+                    Text(message,
                         style: primaryTextStyle.copyWith(fontSize: 12)),
                   ],
                 ),
@@ -334,10 +383,10 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
           Text('Pertanyaan Terkait KPR',
               style: primaryTextStyle.copyWith(fontWeight: bold, fontSize: 16)),
           SizedBox(height: 8),
-          itemFaq(),
-          itemFaq(),
-          itemFaq(),
-          itemFaq(),
+          itemFaq('Apa yang dimaksud dengan KPR ?',
+              'KPR adalah singkatan dari Kredit Pemilikan Rumah, yaitu suatu fasilitas kredit yang diberikan oleh perbankan kepada nasabah perorangan yang ingin membeli atau memperbaiki rumah. KPR memungkinkan nasabah untuk membayar rumah secara cicilan dalam jangka waktu dan bunga tertentu sesuai dengan perjanjian dengan bank. Ada dua jenis KPR yang tersedia di Indonesia, yaitu KPR subsidi dan KPR non-subsidi. KPR subsidi adalah kredit yang diperuntukkan bagi masyarakat berpenghasilan rendah dengan bunga yang lebih rendah dan syarat yang lebih mudah. KPR non-subsidi adalah kredit yang bisa digunakan oleh seluruh masyarakat dengan bunga dan syarat yang ditentukan oleh bank.'),
+          itemFaq('Apa saja jenis suku bunga KPR?',
+              'Secara umum, ada dua jenis suku bunga KPR yang diberlakukan bank, yaitu: Fixed rate, Floating rate. Suku bunga tetap dikenakan kepada debitur menggunakan patokan angka tertentu selama tenor yang telah ditentukan. Besar bunga yang ditetapkan kepada debitur mengikuti fluktuasi suku bunga acuan (BI rate).'),
         ],
       );
     }

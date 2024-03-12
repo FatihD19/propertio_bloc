@@ -37,7 +37,7 @@ class _ModalInformasiState extends State<ModalInformasi> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.6,
+      height: MediaQuery.of(context).size.height * 0.7,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       child: Column(

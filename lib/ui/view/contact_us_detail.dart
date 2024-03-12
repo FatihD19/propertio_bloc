@@ -36,7 +36,7 @@ class ContactUsDetail extends StatelessWidget {
               height: 42,
             ),
           ),
-          SizedBox(width: 8),
+          SizedBox(width: 4),
           GestureDetector(
             onTap: () {
               launchUrl(Uri.parse(
@@ -123,7 +123,7 @@ class ContactUsDetail extends StatelessWidget {
               )
             : Container(
                 height: 90,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -137,7 +137,7 @@ class ContactUsDetail extends StatelessWidget {
                             Container(
                               child: Text('$price',
                                   style: thirdTextStyle.copyWith(
-                                      fontSize: 22, fontWeight: bold)),
+                                      fontSize: 21, fontWeight: bold)),
                             ),
                             SizedBox(width: 4),
                             isRent == true

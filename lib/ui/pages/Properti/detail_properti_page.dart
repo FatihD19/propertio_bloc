@@ -86,6 +86,8 @@ class DetailPropertiPage extends StatelessWidget {
                           countViews: detailProperti.views,
                           shareUrl: ShareUrl.properti(slug),
                           postedAt: detailProperti.postedAt,
+                          isFavorite: detailProperti.isFavorites,
+                          propertyCode: detailProperti.propertyCode,
                         ),
                         SizedBox(height: 16),
                         DetailOverView(

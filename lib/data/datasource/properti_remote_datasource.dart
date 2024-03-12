@@ -30,7 +30,8 @@ class PropertiRemoteDataSource {
   Future<Either<String, DetailPropertiResponseModel>> getDetailProperti(
       String slug) async {
     var url = Uri.parse(ApiPath.baseUrl + '/v1/property/$slug');
-    final response = await http.get(url);
+    final token = await AuthLocalDataSource.getToken();
+    final response = await http.get(url, headers: {'Authorization': token});
 
     print(response.body);
     if (response.statusCode == 200) {

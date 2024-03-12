@@ -84,9 +84,14 @@ class PropertyFacilityView extends StatelessWidget {
     }
 
     Widget listFacility() {
-      return Wrap(
-        spacing: 15,
-        runSpacing: 16,
+      return GridView(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 10,
+            childAspectRatio: 6),
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         children: propertiFacility
             .map((fasilitas) => itemFacility(
                 fasilitas.icon.toString(), fasilitas.name.toString()))

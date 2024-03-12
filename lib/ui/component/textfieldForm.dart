@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
   String? hintText;
   String? title;
   bool? mandatory;
+  bool? isNumber;
 
   Function(String)? onChanged;
   Widget? prefix;
@@ -23,6 +24,7 @@ class CustomTextField extends StatelessWidget {
       this.onChanged,
       this.suffix,
       this.prefix,
+      this.isNumber = false,
       this.mandatory = false});
 
   @override
@@ -71,33 +73,36 @@ class CustomTextField extends StatelessWidget {
                 ),
               ),
               child: TextFormField(
-                controller: controller,
-                onChanged: (value) {
-                  controller?.value = TextEditingValue(
-                    text: value.replaceAll(',', '.'),
-                    selection: TextSelection.collapsed(offset: value.length),
-                  );
-                  onChanged != null ? onChanged!(value) : null;
-                },
-                decoration: InputDecoration(
-                  hintText: hintText,
-                  hintStyle: secondaryTextStyle,
-                  border: InputBorder.none,
-                  suffixIcon: suffix,
-                  suffixIconConstraints:
-                      BoxConstraints(minWidth: 0, minHeight: 0),
-                  prefixIcon: prefix,
-                  prefixIconConstraints:
-                      BoxConstraints(minWidth: 0, minHeight: 0),
-                ),
-                inputFormatters: <TextInputFormatter>[
-                  CurrencyTextInputFormatter(
-                    decimalDigits: 0,
-                    symbol: '',
+                  controller: controller,
+                  onChanged: (value) {
+                    controller?.value = TextEditingValue(
+                      text: value.replaceAll(',', '.'),
+                      selection: TextSelection.collapsed(offset: value.length),
+                    );
+                    onChanged != null ? onChanged!(value) : null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: hintText,
+                    hintStyle: secondaryTextStyle,
+                    border: InputBorder.none,
+                    suffixIcon: suffix,
+                    suffixIconConstraints:
+                        BoxConstraints(minWidth: 0, minHeight: 0),
+                    prefixIcon: prefix,
+                    prefixIconConstraints:
+                        BoxConstraints(minWidth: 0, minHeight: 0),
                   ),
-                ],
-                keyboardType: TextInputType.number,
-              )),
+                  inputFormatters: isNumber == true
+                      ? <TextInputFormatter>[
+                          CurrencyTextInputFormatter(
+                            decimalDigits: 0,
+                            symbol: '',
+                          ),
+                        ]
+                      : null,
+                  keyboardType: isNumber == true
+                      ? TextInputType.number
+                      : TextInputType.text)),
         ],
       ),
     );

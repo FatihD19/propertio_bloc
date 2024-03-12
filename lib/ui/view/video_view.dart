@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:propertio_mobile/shared/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:webviewtube/webviewtube.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WebviewtubeDemo extends StatefulWidget {
@@ -14,18 +13,6 @@ class WebviewtubeDemo extends StatefulWidget {
 }
 
 class _WebviewtubeDemoState extends State<WebviewtubeDemo> {
-  final controller = WebviewtubeController();
-  final options = const WebviewtubeOptions(
-      forceHd: true, loop: true, interfaceLanguage: 'en');
-
-  @override
-  void dispose() {
-    // If a controller is passed to the player, remember to dispose it when
-    // it's not in need.
-    controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(

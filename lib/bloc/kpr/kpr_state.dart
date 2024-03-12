@@ -26,10 +26,20 @@ final class KprError extends KprState {
 }
 
 final class KprLoaded extends KprState {
-  final LoanSimulationResult installmentResults;
+  LoanSimulationResult installmentResults;
 
   KprLoaded(this.installmentResults);
 
   @override
   List<Object> get props => [installmentResults];
+}
+
+abstract class MortgageSimulationState {}
+
+class MortgageSimulationInitial extends MortgageSimulationState {}
+
+class MortgageSimulationLoaded extends MortgageSimulationState {
+  final MortgageSimulationResult result;
+
+  MortgageSimulationLoaded(this.result);
 }

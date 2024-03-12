@@ -112,6 +112,8 @@ class DetailProyekPage extends StatelessWidget {
                           countViews: proyek.countViews,
                           shareUrl: ShareUrl.project(slug),
                           postedAt: proyek.postedAt,
+                          isFavorite: proyek.isFavorites,
+                          projectCode: proyek.projectCode,
                         ),
                         SizedBox(height: 16),
                         DetailOverView(

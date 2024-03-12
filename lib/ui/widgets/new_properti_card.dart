@@ -74,47 +74,47 @@ class NewPropertiCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(width: 13),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 187,
-                        child: Text(propertiBaru.title.toString(),
-                            style: primaryTextStyle.copyWith(
-                              fontSize: 14,
-                              fontWeight: bold,
-                            )),
-                      ),
-                      SizedBox(height: 4),
-                      Container(
-                        width: 187,
-                        child: Text(
-                          '${propertiBaru.address?.city}, ${propertiBaru.address?.province}',
-                          style: secondaryTextStyle.copyWith(
-                            fontSize: 12,
+                  Container(
+                    width: 172,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: Text(propertiBaru.title.toString(),
+                              style: primaryTextStyle.copyWith(
+                                fontSize: 14,
+                                fontWeight: bold,
+                              )),
+                        ),
+                        SizedBox(height: 4),
+                        Container(
+                          child: Text(
+                            '${propertiBaru.address?.city}, ${propertiBaru.address?.province}',
+                            style: secondaryTextStyle.copyWith(
+                              fontSize: 12,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      SizedBox(height: 4),
-                      Row(
-                        children: [
-                          ChipBorder('${propertiBaru.countUnit} tipe unit'),
-                          ChipBorder('${propertiBaru.stockUnit} unit'),
-                          ChipBorder(propertiBaru.completedAt.toString()),
-                        ],
-                      ),
-                      SizedBox(height: 4),
-                      Container(
-                        width: 181,
-                        child: Text(
-                          propertiBaru.headline.toString(),
-                          style: primaryTextStyle.copyWith(fontSize: 10),
+                        SizedBox(height: 4),
+                        Row(
+                          children: [
+                            ChipBorder('${propertiBaru.countUnit} tipe unit'),
+                            ChipBorder('${propertiBaru.stockUnit} unit'),
+                            ChipBorder(propertiBaru.completedAt.toString()),
+                          ],
                         ),
-                      ),
-                      TextPrice(propertiBaru.price.toString()),
-                    ],
+                        SizedBox(height: 4),
+                        Container(
+                          child: Text(
+                            propertiBaru.headline.toString(),
+                            style: primaryTextStyle.copyWith(fontSize: 10),
+                          ),
+                        ),
+                        TextPrice(propertiBaru.price.toString()),
+                      ],
+                    ),
                   )
                 ],
               ),

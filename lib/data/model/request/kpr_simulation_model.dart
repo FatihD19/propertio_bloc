@@ -13,17 +13,47 @@ class LoanSimulationInput {
 }
 
 class LoanSimulationResult {
-  // final double monthlyInstallment;
-  final double summaryPrincipalLoan;
-  final double summaryInterestPrice;
-  final double summaryTotalLoan;
-  final Map<int, double> installmentByYear;
+  double? monthlyInstallment;
+  double? summaryPrincipalLoan;
+  double? summaryInterestPrice;
+  double? summaryTotalLoan;
+  List<LoanForYear>? installmentByYear;
 
   LoanSimulationResult({
-    // required this.monthlyInstallment,
-    required this.summaryPrincipalLoan,
-    required this.summaryInterestPrice,
-    required this.summaryTotalLoan,
-    required this.installmentByYear,
+    this.monthlyInstallment,
+    this.summaryPrincipalLoan,
+    this.summaryInterestPrice,
+    this.summaryTotalLoan,
+    this.installmentByYear,
   });
+}
+
+class LoanForYear {
+  int? year;
+  double? installment;
+
+  LoanForYear({
+    this.year,
+    this.installment,
+  });
+}
+
+class MortgageSimulationRequest {
+  final double propertyPrice;
+  final double downPayment;
+  final double interestRate;
+  final int loanTerm;
+
+  MortgageSimulationRequest({
+    required this.propertyPrice,
+    required this.downPayment,
+    required this.interestRate,
+    required this.loanTerm,
+  });
+}
+
+class MortgageSimulationResult {
+  final List<double> monthlyInstallments;
+
+  MortgageSimulationResult({required this.monthlyInstallments});
 }

@@ -199,10 +199,10 @@ class SmallProyekCardUnit extends StatelessWidget {
                           Row(
                             children: [
                               Facility(
-                                  value: unit!.bedroom.toString(),
+                                  value: unit!.bedroom ?? '0',
                                   img: 'assets/ic_bed.png'),
                               Facility(
-                                  value: unit!.bathroom.toString(),
+                                  value: unit!.bathroom ?? '0',
                                   img: 'assets/ic_bath.png'),
                               Facility(
                                   value: ' ${unit?.surfaceArea} m2',

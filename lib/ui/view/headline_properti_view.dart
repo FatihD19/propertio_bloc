@@ -3,6 +3,7 @@ import 'package:propertio_mobile/data/model/properti_model.dart';
 import 'package:propertio_mobile/shared/utils.dart';
 import 'package:propertio_mobile/ui/component/container_style.dart';
 import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_mobile/ui/component/favorite_button.dart';
 import 'package:propertio_mobile/ui/component/text_price.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -16,6 +17,9 @@ class HeadlinePropertiView extends StatelessWidget {
   int? countViews;
   String? shareUrl;
   DateTime? postedAt;
+  bool? isFavorite;
+  String? propertyCode;
+  String? projectCode;
   HeadlinePropertiView(
       {this.status,
       this.rangePrice = '0',
@@ -26,6 +30,9 @@ class HeadlinePropertiView extends StatelessWidget {
       this.isProyek = false,
       this.shareUrl,
       this.postedAt,
+      this.isFavorite = false,
+      this.propertyCode,
+      this.projectCode,
       super.key});
 
   @override
@@ -47,8 +54,12 @@ class HeadlinePropertiView extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Image.asset('assets/ic_circle_like.png',
-                      fit: BoxFit.cover, width: 30, height: 30),
+                  FavoriteButton(
+                      isFavorite: isFavorite,
+                      projectCode: projectCode,
+                      propertyCode: propertyCode),
+                  // Image.asset('assets/ic_circle_like.png',
+                  //     fit: BoxFit.cover, width: 30, height: 30),
                   SizedBox(width: 4),
                   Image.asset('assets/ic_circle_print.png',
                       width: 30, height: 30),

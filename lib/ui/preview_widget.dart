@@ -34,7 +34,7 @@ class _PreviewPageState extends State<PreviewPage> {
         padding: EdgeInsets.all(24),
         child: ListView(
           children: [
-            ProgressProperti(27),
+            // ProgressProperti(27),
             Slider(
               // 10
               min: 1,

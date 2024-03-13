@@ -7,10 +7,12 @@ import 'package:propertio_mobile/bloc/address/province/province_cubit.dart';
 
 import 'package:propertio_mobile/bloc/agent/agent_bloc.dart';
 import 'package:propertio_mobile/bloc/auth/auth_bloc.dart';
+
 import 'package:propertio_mobile/bloc/developer/developer_bloc.dart';
 import 'package:propertio_mobile/bloc/favorite/favorite_bloc.dart';
 import 'package:propertio_mobile/bloc/homePage/home_page_bloc.dart';
 import 'package:propertio_mobile/bloc/kpr/kpr_cubit.dart';
+import 'package:propertio_mobile/bloc/monitoring/monitoring_bloc.dart';
 import 'package:propertio_mobile/bloc/profile/profile_bloc.dart';
 import 'package:propertio_mobile/bloc/project/project_bloc.dart';
 import 'package:propertio_mobile/bloc/properti/properti_bloc.dart';
@@ -78,6 +80,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => locator<SendMessageBloc>()),
         BlocProvider(create: (context) => KprCubit()),
+        BlocProvider(
+            create: (context) =>
+                locator<MonitoringBloc>()..add(OnGetProjectProgress())),
         // BlocProvider(create: (context) => AddressBloc()..add(OnGetProvince())),
         // BlocProvider(create: (context) => locator<AddressCubit>()),
       ],

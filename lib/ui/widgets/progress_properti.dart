@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:propertio_mobile/data/model/project_progress_model.dart';
 import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_mobile/shared/utils.dart';
 import 'package:propertio_mobile/ui/component/container_style.dart';
 import 'package:propertio_mobile/ui/component/custom_chip.dart';
 import 'package:propertio_mobile/ui/pages/Monitoring/detail_monitoring_page.dart';
 import 'package:propertio_mobile/ui/widgets/properti_card.dart';
 
 class ProgressProperti extends StatelessWidget {
-  final int progress;
+  final ProjectProgressModel projectProgress;
+  // final int progress;
   bool? isFail;
-  ProgressProperti(this.progress, {this.isFail = false, super.key});
+  ProgressProperti(this.projectProgress, {this.isFail = false, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,7 @@ class ProgressProperti extends StatelessWidget {
     }
 
     Widget progressIndicator() {
+      int progress = int.parse(projectProgress.progressPercentage ?? '0');
       double value = progress / 100;
       return Row(
         children: [
@@ -75,7 +79,9 @@ class ProgressProperti extends StatelessWidget {
                       children: [
                         Image.asset('assets/img_new_properti.png'),
                         Positioned(
-                            top: 5, left: 5, child: CustomChip('On Progress')),
+                            top: 5,
+                            left: 5,
+                            child: CustomChip('${projectProgress.status}')),
                         Positioned(bottom: 5, left: 5, child: ChipHouse())
                       ],
                     ),
@@ -83,19 +89,21 @@ class ProgressProperti extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Summit Springs Estates',
+                        Text('${projectProgress.title}',
                             style: primaryTextStyle.copyWith(
                               fontSize: 14,
                               fontWeight: bold,
                             )),
                         infoRow('assets/ic_location.png',
-                            'Menteng, Jakarta Selatan'),
+                            '${projectProgress.address}'),
                         infoRow('assets/ic_calendar.png',
-                            '2 Sept 2023 - 2 Jan 2024'),
-                        infoRow('assets/ic_person.png', 'Herlambang'),
-                        infoRow('assets/ic_mini_call.png', '08123456789'),
+                            '${projectProgress.startDate} - ${projectProgress.endDate}'),
+                        infoRow('assets/ic_person.png',
+                            '${projectProgress.developerName}'),
+                        infoRow('assets/ic_mini_call.png',
+                            '${projectProgress.developerPhone}'),
                         SizedBox(height: 4),
-                        Text('Rp 200 - 300 Juta',
+                        Text(formatCurrency(projectProgress.price!),
                             style: thirdTextStyle.copyWith(
                                 fontWeight: bold, fontSize: 16)),
                       ],
@@ -110,6 +118,8 @@ class ProgressProperti extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 progressIndicator(),
+                // Text(formatDate(projectProgress.startDate)),
+
                 SizedBox(height: 8),
 
                 // ListTile(

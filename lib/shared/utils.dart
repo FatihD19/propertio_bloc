@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 extension StringExt on String {
@@ -48,5 +49,19 @@ String calculateTimeDifference(String apiTimeString) {
   } else {
     int years = (difference.inDays / 365).floor();
     return '$years tahun yang lalu';
+  }
+}
+
+Future<String> formatStringToIndonesianDate(String dateString) async {
+  try {
+    DateFormat inputFormat = DateFormat('yyyy-MM-dd');
+    DateTime dateTime = inputFormat.parse(dateString);
+
+    DateFormat outputFormat = DateFormat('dd MMMM yyyy', 'id');
+    String formattedDate = outputFormat.format(dateTime);
+    return formattedDate;
+  } catch (e) {
+    print('Error: $e');
+    return '';
   }
 }

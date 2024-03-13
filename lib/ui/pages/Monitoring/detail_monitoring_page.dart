@@ -156,7 +156,7 @@ class DetailMonitoringPage extends StatelessWidget {
           children: [
             header(),
             SizedBox(height: 8),
-            ProgressProperti(50),
+            // ProgressProperti(50),
             SizedBox(height: 8),
             listProgress()
           ],

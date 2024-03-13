@@ -32,14 +32,24 @@ class FacilityView extends StatelessWidget {
     }
 
     Widget listFacility() {
-      return Wrap(
-        spacing: 15,
-        runSpacing: 16,
+      return GridView(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 6),
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         children: facility
             .map((fasilitas) => itemFacility(
                 fasilitas.icon.toString(), fasilitas.name.toString()))
             .toList(),
       );
+      // Wrap(
+      //   spacing: 15,
+      //   runSpacing: 16,
+
+      // );
     }
 
     return Container(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:propertio_mobile/bloc/homePage/home_page_bloc.dart';
+import 'package:propertio_mobile/bloc/properti/properti_bloc.dart';
 import 'package:propertio_mobile/shared/theme.dart';
 import 'package:propertio_mobile/ui/component/search_form.dart';
 import 'package:propertio_mobile/ui/component/text_failure.dart';
+import 'package:propertio_mobile/ui/pages/Properti/properti_page.dart';
 import 'package:propertio_mobile/ui/view/info_promo_view.dart';
 import 'package:propertio_mobile/ui/widgets/agent_card.dart';
 import 'package:propertio_mobile/ui/widgets/item_tipe_apartemen.dart';
@@ -32,6 +34,17 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.symmetric(vertical: 16),
               child: Image.asset('assets/img_banner_properti.jpeg')),
           SearchForm(
+            action: () {
+              context.read<PropertiBloc>().add(OnGetProperti(
+                  query: propertiSearch.text,
+                  isRent: false,
+                  type: selectedType));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PropertiPage(fromHomePage: true, isRent: false)));
+            },
             controller: propertiSearch,
             onChanged: (value) {
               setState(() {

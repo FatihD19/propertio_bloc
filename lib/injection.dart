@@ -4,12 +4,15 @@ import 'package:propertio_mobile/bloc/address/province/province_cubit.dart';
 
 import 'package:propertio_mobile/bloc/auth/auth_bloc.dart';
 
+import 'package:propertio_mobile/bloc/chat/chat_bloc.dart';
+
 import 'package:propertio_mobile/bloc/favorite/favorite_bloc.dart';
 import 'package:propertio_mobile/bloc/homePage/home_page_bloc.dart';
 import 'package:propertio_mobile/bloc/monitoring/monitoring_bloc.dart';
 import 'package:propertio_mobile/bloc/sendMessage/send_message_bloc.dart';
 import 'package:propertio_mobile/data/datasource/address_remote_datasource.dart';
 import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
+import 'package:propertio_mobile/data/datasource/chat_remote_datasource.dart';
 import 'package:propertio_mobile/data/datasource/favortite_remote_datasource.dart';
 import 'package:propertio_mobile/data/datasource/homepage_remote_datasource.dart';
 import 'package:propertio_mobile/data/datasource/login_remote_datasource.dart';
@@ -28,6 +31,7 @@ Future<void> initLocator() async {
   locator.registerFactory(() => CitiesCubit(locator()));
   locator.registerFactory(() => SendMessageBloc(locator()));
   locator.registerFactory(() => MonitoringBloc(locator()));
+  locator.registerFactory(() => ChatBloc(locator()));
   // locator.registerFactory(() => AddressCubit(locator()));
 
   locator.registerFactory(() => FavoriteBloc(locator()));
@@ -46,4 +50,6 @@ Future<void> initLocator() async {
       () => SendMessageRemoteDataSource());
   locator.registerLazySingleton<MonitoringRemoteDataSource>(
       () => MonitoringRemoteDataSource());
+  locator.registerLazySingleton<ChatRemoteDataSource>(
+      () => ChatRemoteDataSource());
 }

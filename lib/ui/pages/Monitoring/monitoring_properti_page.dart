@@ -22,7 +22,7 @@ class MonitoringPropertiPage extends StatelessWidget {
               style: primaryTextStyle.copyWith(fontWeight: bold, fontSize: 16)),
           SizedBox(height: 16),
           SearchForm(),
-          ExampleWidget()
+          // ExampleWidget()
         ],
       );
     }
@@ -60,32 +60,32 @@ class MonitoringPropertiPage extends StatelessWidget {
   }
 }
 
-class ExampleWidget extends StatefulWidget {
-  @override
-  _ExampleWidgetState createState() => _ExampleWidgetState();
-}
+// class ExampleWidget extends StatefulWidget {
+//   @override
+//   _ExampleWidgetState createState() => _ExampleWidgetState();
+// }
 
-class _ExampleWidgetState extends State<ExampleWidget> {
-  String _formattedDate = '';
+// class _ExampleWidgetState extends State<ExampleWidget> {
+//   String _formattedDate = '';
 
-  @override
-  void initState() {
-    super.initState();
-    _convertDateToString('2023-07-19');
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     _convertDateToString('2023-07-19');
+//   }
 
-  Future<void> _convertDateToString(String dateString) async {
-    String formattedDate = await formatStringToIndonesianDate(dateString);
-    setState(() {
-      _formattedDate = formattedDate;
-    });
-  }
+//   Future<void> _convertDateToString(String dateString) async {
+//     String formattedDate = await formatStringToIndonesianDate(dateString);
+//     setState(() {
+//       _formattedDate = formattedDate;
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      _formattedDate,
-      style: TextStyle(fontSize: 18),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Text(
+//       _formattedDate,
+//       style: TextStyle(fontSize: 18),
+//     );
+//   }
+// }

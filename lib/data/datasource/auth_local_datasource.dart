@@ -10,6 +10,7 @@ class AuthLocalDataSource {
       await storage.write(key: 'email', value: user.email);
       await storage.write(key: 'password', value: user.password);
       await storage.write(key: 'isLogin', value: 'true');
+      await storage.write(key: 'idAccount', value: user.accountId);
     } catch (e) {
       rethrow;
     }
@@ -54,6 +55,17 @@ class AuthLocalDataSource {
     }
     // print('token: $token');
     return token;
+  }
+
+  static Future<String> getIdAccount() async {
+    String idAccount = '';
+    const storage = FlutterSecureStorage();
+    String? value = await storage.read(key: 'idAccount');
+
+    if (value != null) {
+      idAccount = value;
+    }
+    return idAccount;
   }
 
   Future<void> clearLocalStorage() async {

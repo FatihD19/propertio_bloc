@@ -8,6 +8,8 @@ import 'package:propertio_mobile/bloc/address/province/province_cubit.dart';
 import 'package:propertio_mobile/bloc/agent/agent_bloc.dart';
 import 'package:propertio_mobile/bloc/auth/auth_bloc.dart';
 
+import 'package:propertio_mobile/bloc/chat/chat_bloc.dart';
+
 import 'package:propertio_mobile/bloc/developer/developer_bloc.dart';
 import 'package:propertio_mobile/bloc/favorite/favorite_bloc.dart';
 import 'package:propertio_mobile/bloc/homePage/home_page_bloc.dart';
@@ -83,6 +85,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 locator<MonitoringBloc>()..add(OnGetProjectProgress())),
+        BlocProvider(create: (context) => locator<ChatBloc>()),
         // BlocProvider(create: (context) => AddressBloc()..add(OnGetProvince())),
         // BlocProvider(create: (context) => locator<AddressCubit>()),
       ],

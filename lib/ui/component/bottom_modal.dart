@@ -4,6 +4,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:propertio_mobile/bloc/monitoring/monitoring_bloc.dart';
 
 import 'package:propertio_mobile/bloc/project/project_bloc.dart';
 
@@ -13,6 +14,7 @@ import 'package:propertio_mobile/data/model/agent_model.dart';
 import 'package:propertio_mobile/data/model/developer_model.dart';
 import 'package:propertio_mobile/data/model/responses/address_response_model.dart';
 import 'package:propertio_mobile/data/model/responses/list_propertyType_Response_model.dart';
+import 'package:propertio_mobile/injection.dart';
 import 'package:propertio_mobile/shared/theme.dart';
 import 'package:propertio_mobile/ui/component/button.dart';
 import 'package:propertio_mobile/ui/component/dropdown_type.dart';
@@ -245,45 +247,65 @@ class _ModalFilterState extends State<ModalFilter> {
 }
 
 class ModalProgress extends StatelessWidget {
-  const ModalProgress({super.key});
+  final String id;
+  ModalProgress(this.id, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 900,
+        height: 700,
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-        child: ListView(
-          children: [
-            Text(
-              'Detail Progress Pembangunan',
-              style: primaryTextStyle.copyWith(
-                fontSize: 20,
-                fontWeight: semiBold,
-              ),
-            ),
-            SizedBox(height: 16),
-            CustomTextField(
-              title: 'Judul Progress',
-              hintText: 'Judul Progress',
-            ),
-            CustomTextField(
-              title: 'Deskripsi Progress',
-              hintText: 'Deskripsi Progress',
-            ),
-            Text(
-              'Bukti Visual',
-              style:
-                  primaryTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
-            ),
-            InfoPromoCarousel(
-              [
-                'assets/img_detail_foto.png',
-                'assets/img_detail_foto.png',
-                'assets/img_detail_foto.png',
-              ],
-            ),
-          ],
+        child: BlocProvider(
+          create: (context) =>
+              locator<MonitoringBloc>()..add(OnGetDetailProjectProgress(id)),
+          child: BlocBuilder<MonitoringBloc, MonitoringState>(
+            builder: (context, state) {
+              if (state is MonitoringLoading) {
+                return Center(child: CircularProgressIndicator());
+              }
+              if (state is MonitoringError) {
+                return TextFailure(message: state.message);
+              }
+              if (state is DetailProjectProgressLoaded) {
+                return ListView(
+                  children: [
+                    Text(
+                      'Detail Progress Pembangunan',
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 20,
+                        fontWeight: semiBold,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    CustomTextField(
+                      title: 'Judul Progress',
+                      hintText:
+                          '${state.projectProgress.data?.briefDescription}',
+                    ),
+                    CustomTextField(
+                      title: 'Deskripsi Progress',
+                      hintText:
+                          '${state.projectProgress.data?.detailDescription}',
+                    ),
+                    Text(
+                      'Bukti Visual',
+                      style: primaryTextStyle.copyWith(
+                          fontSize: 16, fontWeight: semiBold),
+                    ),
+                    InfoPromoCarousel(
+                      [
+                        'assets/img_detail_foto.png',
+                        'assets/img_detail_foto.png',
+                        'assets/img_detail_foto.png',
+                      ],
+                    ),
+                  ],
+                );
+              }
+              return Container();
+            },
+          ),
         ));
   }
 }

@@ -57,8 +57,10 @@ class ProgressProperti extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DetailMonitoringPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailMonitoringPage(projectProgress)));
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 16),

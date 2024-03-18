@@ -20,4 +20,21 @@ class ChatRemoteDataSource {
       return Left('Server Error');
     }
   }
+
+  Future<bool> postChatUser(String id, String message) async {
+    var url = Uri.parse(ApiPath.baseUrl + '/v1/progress/chat/$id');
+    final token = await AuthLocalDataSource.getToken();
+    final response = await http.post(url, headers: {
+      'Authorization': token,
+    }, body: {
+      'message': message,
+    });
+
+    print(response.body);
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

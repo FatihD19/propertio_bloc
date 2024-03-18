@@ -65,3 +65,15 @@ Future<String> formatStringToIndonesianDate(String dateString) async {
     return '';
   }
 }
+
+String formatDate(DateTime dateTime) {
+  // Locale Indonesia
+  var format = DateFormat.yMMMMd('id_ID');
+  return format.format(dateTime);
+}
+
+String formatClock(DateTime dateTime) {
+  // Locale Indonesia
+  var format = DateFormat('HH:mm');
+  return format.format(dateTime);
+}

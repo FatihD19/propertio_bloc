@@ -2,12 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:propertio_mobile/bloc/chat/chat_bloc.dart';
 import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
 import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_mobile/shared/utils.dart';
 import 'package:propertio_mobile/ui/component/sidebar.dart';
 import 'package:propertio_mobile/ui/component/text_failure.dart';
 import 'package:propertio_mobile/ui/component/textfieldForm.dart';
+import 'package:propertio_mobile/ui/widgets/chat_item.dart';
 
 class ChatMonitoringPage extends StatefulWidget {
   final String idMonitoring;
@@ -19,15 +22,29 @@ class ChatMonitoringPage extends StatefulWidget {
 
 class _ChatMonitoringPageState extends State<ChatMonitoringPage> {
   String idAccount = '';
-
   getIdAccount() async {
     idAccount = await AuthLocalDataSource.getIdAccount();
   }
 
+  final ScrollController _scrollController = ScrollController();
+
+  TextEditingController _messageController = TextEditingController();
+
+  List<Widget> _chatList = [];
+  List chat = [];
+
+  void _scrollToBottom() {
+    Future.delayed(Duration(milliseconds: 500), () {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
+  }
+
   @override
   void initState() {
+    initializeDateFormatting('id', null);
     getIdAccount();
     context.read<ChatBloc>().add(OnGetListChat(widget.idMonitoring));
+    _scrollToBottom();
     super.initState();
   }
 
@@ -41,50 +58,71 @@ class _ChatMonitoringPageState extends State<ChatMonitoringPage> {
         child: Column(
           children: [
             Expanded(
-              child: BlocBuilder<ChatBloc, ChatState>(
-                builder: (context, state) {
-                  if (state is ChatLoading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is ChatLoaded) {
-                    return Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      child: ListView.builder(
-                        itemCount: state.data.data!.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              ChatMessage(
-                                text: state.data.data![index].message!,
-                                isSender:
-                                    state.data.data![index].sender == idAccount,
-                                sameDate: index == 0
-                                    ? true
-                                    : state.data.data![index].createdAt! ==
-                                            state.data.data![index - 1]
-                                                .createdAt!
-                                        ? true
-                                        : false,
-                              ),
-                              Text(state.data.data![index].createdAt.toString(),
-                                  style: secondaryTextStyle.copyWith(
-                                      fontSize: 12)),
-                            ],
-                          );
-                        },
-                      ),
-                    );
-                  } else if (state is ChatError) {
-                    return TextFailure(message: state.message);
-                  } else {
-                    return Center(
-                      child: Text('No Data'),
-                    );
+              child: BlocListener<ChatBloc, ChatState>(
+                listener: (context, state) {
+                  if (state is ChatLoaded) {
+                    chat = state.data.data!;
+                    setState(() {});
                   }
                 },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    itemCount: chat.length,
+                    // shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      // _scrollToBottom();
+                      return ChatMessage(
+                        text: chat[index].message!,
+                        isSender: chat[index].sender == idAccount,
+                        sameDate: index == 0
+                            ? true
+                            : formatDate(chat[index].createdAt!) !=
+                                formatDate(chat[index - 1].createdAt!),
+                        date: chat[index].createdAt!,
+                      );
+                    },
+                  ),
+                ),
               ),
+              // BlocBuilder<ChatBloc, ChatState>(
+              //   builder: (context, state) {
+              //     if (state is ChatLoading) {
+              //       return Center(
+              //         child: CircularProgressIndicator(),
+              //       );
+              //     } else if (state is ChatLoaded) {
+              //       List chat = state.data.data!;
+
+              //       return Padding(
+              //         padding:
+              //             EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              //         child: ListView.builder(
+              //           controller: _scrollController,
+              //           itemCount: chat.length,
+              //           // shrinkWrap: true,
+              //           itemBuilder: (context, index) {
+              //             // _scrollToBottom();
+              //             return ChatMessage(
+              //               text: chat[index].message!,
+              //               isSender: chat[index].sender == idAccount,
+              //               sameDate: index == 0
+              //                   ? true
+              //                   : formatDate(chat[index].createdAt!) !=
+              //                       formatDate(chat[index - 1].createdAt!),
+              //               date: formatDate(chat[index].createdAt!),
+              //             );
+              //           },
+              //         ),
+              //       );
+              //     } else {
+              //       return Center(
+              //         child: Text('No Data'),
+              //       );
+              //     }
+              //   },
+              // ),
             ),
             Container(
               padding: EdgeInsets.all(16.0),
@@ -93,24 +131,42 @@ class _ChatMonitoringPageState extends State<ChatMonitoringPage> {
                 children: [
                   Expanded(
                       child: CustomTextField(
+                    controller: _messageController,
                     hintText: 'Ketik Pesan',
                   )),
                   SizedBox(width: 16.0),
-                  InkWell(
-                    onTap: () {
-                      // Send message logic goes here
+                  BlocConsumer<ChatBloc, ChatState>(
+                    listener: (context, state) {
+                      if (state is ChatSuccessPost) {
+                        context
+                            .read<ChatBloc>()
+                            .add(OnGetListChat(widget.idMonitoring));
+                        _scrollToBottom();
+                      }
                     },
-                    child: Container(
-                        margin: EdgeInsets.only(bottom: 14),
-                        padding: EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          color: primaryColor,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.send,
-                          color: Colors.white,
-                        )),
+                    builder: (context, state) {
+                      if (state is ChatLoading) {
+                        return CircularProgressIndicator();
+                      }
+                      return InkWell(
+                        onTap: () {
+                          context.read<ChatBloc>().add(OnPostChatUser(
+                              widget.idMonitoring, _messageController.text));
+                          _messageController.clear();
+                        },
+                        child: Container(
+                            margin: EdgeInsets.only(bottom: 14),
+                            padding: EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.send,
+                              color: Colors.white,
+                            )),
+                      );
+                    },
                   ),
                   // ElevatedButton(
                   //   style: ElevatedButton.styleFrom(
@@ -132,83 +188,5 @@ class _ChatMonitoringPageState extends State<ChatMonitoringPage> {
         ),
       ),
     );
-  }
-}
-
-class ChatMessage extends StatelessWidget {
-  final String text;
-  final bool isSender;
-  final bool sameDate;
-
-  const ChatMessage({
-    required this.text,
-    required this.isSender,
-    this.sameDate = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        children: [
-          if (sameDate)
-            Text('11 May 2021',
-                style: secondaryTextStyle.copyWith(fontSize: 12)),
-          Row(
-            mainAxisAlignment:
-                isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
-            children: [
-              Flexible(
-                child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.6,
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                  decoration: BoxDecoration(
-                    color: isSender ? primaryColor : buttonTextColor,
-                    borderRadius: BorderRadius.circular(16.0),
-                    border: Border.all(
-                        color: isSender ? primaryColor : secondaryColor,
-                        width: 2.0,
-                        style: BorderStyle.solid),
-                  ),
-                  child: Text(
-                    text,
-                    style: isSender
-                        ? buttonTextStyle.copyWith(
-                            color: Colors.white, fontSize: 16)
-                        : primaryTextStyle.copyWith(fontSize: 16),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-    // Align(
-    //   alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
-    //   child: Container(
-    //     margin: EdgeInsets.symmetric(vertical: 8.0),
-    //     padding: EdgeInsets.all(16.0),
-    //     decoration: BoxDecoration(
-    //       color: isSender ? primaryColor : buttonTextColor,
-    //       borderRadius: BorderRadius.circular(16.0),
-    //       border: Border.all(
-    //           color: isSender ? primaryColor : secondaryColor,
-    //           width: 2.0,
-    //           style: BorderStyle.solid),
-    //     ),
-    //     child: Text(
-    //       text,
-    //       style: isSender
-    //           ? buttonTextStyle.copyWith(color: Colors.white, fontSize: 16)
-    //           : primaryTextStyle.copyWith(fontSize: 16),
-    //     ),
-    //   ),
-    // );
   }
 }

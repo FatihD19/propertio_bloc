@@ -28,3 +28,5 @@ final class ChatError extends ChatState {
   @override
   List<Object> get props => [message];
 }
+
+final class ChatSuccessPost extends ChatState {}

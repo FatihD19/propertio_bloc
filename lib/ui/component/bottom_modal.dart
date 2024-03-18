@@ -293,13 +293,10 @@ class ModalProgress extends StatelessWidget {
                       style: primaryTextStyle.copyWith(
                           fontSize: 16, fontWeight: semiBold),
                     ),
-                    InfoPromoCarousel(
-                      [
-                        'assets/img_detail_foto.png',
-                        'assets/img_detail_foto.png',
-                        'assets/img_detail_foto.png',
-                      ],
-                    ),
+                    InfoPromoCarousel(state.projectProgress.data?.pictures!
+                            .map((e) => '/storage/monitoring/${e.pictureFile}')
+                            .toList() ??
+                        []),
                   ],
                 );
               }

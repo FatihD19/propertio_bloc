@@ -2,6 +2,8 @@ class ApiPath {
   static const String url = 'https://beta.propertio.id';
   static const String baseUrl = '$url/api';
   static String image(String fileName) => '$url/$fileName';
+  static String imageMonitoring(String fileName) =>
+      '$url/storage/monitoring/$fileName';
 }
 
 class ShareUrl {

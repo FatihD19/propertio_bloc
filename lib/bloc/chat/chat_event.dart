@@ -15,3 +15,13 @@ class OnGetListChat extends ChatEvent {
   @override
   List<Object> get props => [id];
 }
+
+class OnPostChatUser extends ChatEvent {
+  String id;
+  String message;
+
+  OnPostChatUser(this.id, this.message);
+
+  @override
+  List<Object> get props => [id, message];
+}

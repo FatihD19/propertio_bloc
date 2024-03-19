@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:propertio_mobile/bloc/address/cities/cities_cubit.dart';
 import 'package:propertio_mobile/bloc/address/province/province_cubit.dart';
+import 'package:propertio_mobile/bloc/profile/profile_bloc.dart';
+import 'package:propertio_mobile/data/model/request/udpate_profil_request_model.dart';
 
 import 'package:propertio_mobile/data/model/responses/address_response_model.dart';
 import 'package:propertio_mobile/data/model/responses/profil_response_model.dart';
 import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_mobile/ui/component/bottom_modal.dart';
 import 'package:propertio_mobile/ui/component/button.dart';
 import 'package:propertio_mobile/ui/component/dropdown_type.dart';
 import 'package:propertio_mobile/ui/component/text_failure.dart';
@@ -32,6 +38,17 @@ class _ModalEditProfileState extends State<ModalEditProfile> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  File? _image;
+  void _pickImage() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedImage != null) {
+        _image = File(pickedImage.path);
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -159,6 +176,16 @@ class _ModalEditProfileState extends State<ModalEditProfile> {
               ),
             ),
             SizedBox(height: 16),
+            GestureDetector(
+              onTap: _pickImage,
+              child: CircleAvatar(
+                radius: 80,
+                backgroundImage: _image != null ? FileImage(_image!) : null,
+                child:
+                    _image == null ? Icon(Icons.add_a_photo, size: 40) : null,
+              ),
+            ),
+            SizedBox(height: 20),
             CustomTextField(
               controller: nameController,
               title: 'Nama Lengkap',
@@ -185,7 +212,34 @@ class _ModalEditProfileState extends State<ModalEditProfile> {
               mandatory: true,
               hintText: 'Masukan Alamat Anda',
             ),
-            CustomButton(text: 'Simpan', onPressed: () {})
+            BlocConsumer<ProfileBloc, ProfileState>(
+              listener: (context, state) {
+                if (state is ProfileSuccess) {
+                  showMessageModal(context, 'Berhasil ,Data berhasil diubah',
+                      color: Colors.green);
+                }
+                if (state is ProfileError) {
+                  showMessageModal(context, state.message);
+                }
+              },
+              builder: (context, state) {
+                return CustomButton(
+                    text: 'Simpan',
+                    onPressed: () {
+                      final updateProfil = UpdateProfilRequestModel(
+                          fullName: nameController.text,
+                          email: emailController.text,
+                          phone: phoneController.text,
+                          address: addressController.text,
+                          province: _selectedProvince!,
+                          city: _selectedCity!,
+                          pictureProfileFile: _image);
+                      context
+                          .read<ProfileBloc>()
+                          .add(OnUpdateProfil(updateProfil));
+                    });
+              },
+            )
           ],
         ));
   }

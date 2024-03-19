@@ -95,44 +95,42 @@ class DetailUnitPage extends StatelessWidget {
                           DetailInfoView(listInfo: [
                             RowTextInfo(
                                 title: 'Kode Unit',
-                                value: detailUnit.unitCode.toString()),
+                                value: detailUnit.unitCode ?? '0'),
                             RowTextInfo(
-                                title: 'Harga',
-                                value: detailUnit.price.toString()),
+                                title: 'Harga', value: detailUnit.price ?? '0'),
                             RowTextInfo(
                                 title: 'Jumlah Lantai',
-                                value: detailUnit.floor.toString()),
+                                value: detailUnit.floor ?? '0'),
                             RowTextInfo(
                                 title: 'Kamar Mandi',
-                                value: detailUnit.bathroom.toString()),
+                                value: detailUnit.bathroom ?? '0'),
                             RowTextInfo(
                                 title: 'Daya Listrik',
-                                value: detailUnit.powerSupply.toString()),
+                                value: detailUnit.powerSupply ?? ''),
                             RowTextInfo(
                                 title: 'Teresdia',
-                                value: detailUnit.stock.toString()),
+                                value: detailUnit.stock ?? '0'),
                             RowTextInfo(
                                 title: 'Tipe Properti',
-                                value:
-                                    detailUnit.propertyType!.name.toString()),
+                                value: detailUnit.propertyType!.name ?? '0'),
                             RowTextInfo(
                                 title: 'Sertifikat',
-                                value: detailUnit.certificate.toString()),
+                                value: detailUnit.certificate ?? '0'),
                             RowTextInfo(
                                 title: 'Luas Bangunan',
-                                value: detailUnit.buildingArea.toString()),
+                                value: detailUnit.buildingArea ?? '0'),
                             RowTextInfo(
                                 title: 'Kamar',
-                                value: detailUnit.bedroom.toString()),
+                                value: detailUnit.bedroom ?? '0'),
                             RowTextInfo(
                                 title: 'Tempat Parkir',
-                                value: detailUnit.garage.toString()),
+                                value: detailUnit.garage ?? '0'),
                             RowTextInfo(
                                 title: 'Jenis Air',
-                                value: detailUnit.waterType.toString()),
+                                value: detailUnit.waterType ?? ''),
                             RowTextInfo(
                                 title: 'Interior',
-                                value: detailUnit.interior.toString()),
+                                value: detailUnit.interior ?? ''),
                           ]),
                           SizedBox(height: 16),
                           AlamatInfoView([

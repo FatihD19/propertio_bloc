@@ -77,4 +77,21 @@ class ProfileRemoteDataSource {
       return Left('Server Error');
     }
   }
+
+  Future<bool> resetPassword(ResetPasswordRequestModel request) async {
+    var url = Uri.parse(ApiPath.baseUrl + '/v1/reset-password');
+    final token = await AuthLocalDataSource.getToken();
+    final response = await http.post(url,
+        headers: {
+          'Authorization': token,
+        },
+        body: request.toJson());
+
+    print(response.body);
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

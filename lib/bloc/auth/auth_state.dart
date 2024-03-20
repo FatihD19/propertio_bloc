@@ -28,3 +28,8 @@ final class AuthSuccess extends AuthState {
   @override
   List<Object> get props => [user];
 }
+
+final class RegisterSuccess extends AuthState {
+  @override
+  List<Object> get props => [];
+}

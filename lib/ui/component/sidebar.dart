@@ -96,19 +96,27 @@ class SideBar extends StatelessWidget {
                                 )
                               : ListTile(
                                   tileColor: Colors.transparent,
-                                  leading: Image.network(
-                                    ApiPath.image('${imgProfil}'),
-                                    width: 48,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return CircleAvatar(
-                                        backgroundColor: Colors.white,
-                                        child: Icon(
-                                          Icons.person_outline_rounded,
-                                          size: 24,
-                                        ),
-                                      );
-                                    },
+                                  leading: CircleAvatar(
+                                    radius: 26,
+                                    backgroundImage: NetworkImage(
+                                      ApiPath.image('${imgProfil}'),
+                                      scale: 1.0,
+                                    ),
                                   ),
+                                  // Image.network(
+                                  //   ApiPath.image('${imgProfil}'),
+                                  //   width: 48,
+                                  //   fit: BoxFit.cover,
+                                  //   errorBuilder: (context, error, stackTrace) {
+                                  //     return CircleAvatar(
+                                  //       backgroundColor: Colors.white,
+                                  //       child: Icon(
+                                  //         Icons.person_outline_rounded,
+                                  //         size: 24,
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  // ),
                                   title: Text(
                                     'Halo Selamat Datang',
                                     style: buttonTextStyle.copyWith(

@@ -77,29 +77,36 @@ class ProfilePage extends StatelessWidget {
               UserData? profile = state.data.data?.userData!;
               return Column(
                 children: [
-                  Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 1),
-                      ),
-                      child: Image.network(
-                        ApiPath.image('${profile?.pictureProfile}'),
-                        width: 48,
-                        errorBuilder: (context, error, stackTrace) {
-                          return CircleAvatar(
-                            backgroundColor: Colors.black,
-                            child: Icon(
-                              Icons.person_outline_rounded,
-                              size: 24,
-                            ),
-                          );
-                        },
-                      )
-                      // CircleAvatar(
-                      //     backgroundImage: AssetImage('assets/img_profile.png')),
-                      ),
+                  profile?.pictureProfile == null
+                      ? CircleAvatar(
+                          backgroundColor: Colors.black,
+                          child: Icon(
+                            Icons.person_outline_rounded,
+                            size: 100,
+                          ),
+                        )
+                      : CircleAvatar(
+                          radius: 60,
+                          backgroundImage: NetworkImage(
+                            ApiPath.image('${profile?.pictureProfile}'),
+                            scale: 1.0,
+                          ),
+                          // child: Image.network(
+                          //   ApiPath.image('${profile?.pictureProfile}'),
+                          //   width: 100,
+                          //   height: 100,
+                          //   fit: BoxFit.cover,
+                          //   errorBuilder: (context, error, stackTrace) {
+                          //     return CircleAvatar(
+                          //       backgroundColor: Colors.black,
+                          //       child: Icon(
+                          //         Icons.person_outline_rounded,
+                          //         size: 24,
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+                        ),
                   Text('${profile?.fullName}',
                       style: primaryTextStyle.copyWith(
                           fontWeight: bold, fontSize: 16)),

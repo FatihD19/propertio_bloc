@@ -16,3 +16,11 @@ class AuthLogin extends AuthEvent {
 }
 
 class AuthGetCurrentUser extends AuthEvent {}
+
+class RegisterUser extends AuthEvent {
+  final RegisterRequestModel data;
+  const RegisterUser(this.data);
+
+  @override
+  List<Object> get props => [data];
+}

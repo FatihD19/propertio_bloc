@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:propertio_mobile/bloc/address/cities/cities_cubit.dart';
+import 'package:propertio_mobile/bloc/auth/auth_bloc.dart';
+import 'package:propertio_mobile/data/model/request/register_request_model.dart';
 import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_mobile/ui/component/bottom_modal.dart';
 import 'package:propertio_mobile/ui/component/button.dart';
 import 'package:propertio_mobile/ui/component/dropdown_type.dart';
 import 'package:propertio_mobile/ui/component/textfieldForm.dart';
@@ -25,6 +31,19 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String _selectedProvince = 'Pilih Provinsi';
   String _selectedCity = 'Pilih Kota';
+
+  File? _image;
+  void _pickImage() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedImage != null) {
+        _image = File(pickedImage.path);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget header() {
@@ -106,23 +125,31 @@ class _RegisterPageState extends State<RegisterPage> {
               fontWeight: semiBold,
             ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 100, vertical: 16),
-            margin: EdgeInsets.only(top: 8),
-            decoration: BoxDecoration(
-              color: bgColor1,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.add_circle_outline_outlined),
-                SizedBox(width: 8),
-                Text(
-                  'Tambahkan',
-                  style: primaryTextStyle.copyWith(
-                      fontSize: 16, fontWeight: semiBold),
-                ),
-              ],
+          GestureDetector(
+            onTap: _pickImage,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 100, vertical: 16),
+              margin: EdgeInsets.only(top: 8),
+              decoration: BoxDecoration(
+                color: bgColor1,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: _image != null
+                  ? CircleAvatar(
+                      radius: 80,
+                      backgroundImage: FileImage(_image!, scale: 1.0),
+                    )
+                  : Row(
+                      children: [
+                        Icon(Icons.add_circle_outline_outlined),
+                        SizedBox(width: 8),
+                        Text(
+                          'Tambahkan',
+                          style: primaryTextStyle.copyWith(
+                              fontSize: 16, fontWeight: semiBold),
+                        ),
+                      ],
+                    ),
             ),
           ),
         ],
@@ -151,25 +178,16 @@ class _RegisterPageState extends State<RegisterPage> {
             mandatory: true,
             hintText: 'Masukan Email Anda',
           ),
-          RichText(
-              text: TextSpan(children: [
-            TextSpan(
-              text: 'Nomor Telepon',
-              style: primaryTextStyle.copyWith(
-                fontSize: 18,
-                fontWeight: semiBold,
-              ),
-            ),
-            TextSpan(
-              text: ' *',
-              style: primaryTextStyle.copyWith(
-                fontSize: 18,
-                fontWeight: medium,
-                color: Colors.red,
-              ),
-            ),
-          ])),
-          PhoneNumberInputField(controller: phoneController),
+
+          // PhoneNumberInputField(controller: phoneController),
+          CustomTextField(
+            controller: phoneController,
+            title: 'Nomor Telepon',
+            mandatory: true,
+            hintText: ' Masukan Nomor Telepon Anda',
+            prefix:
+                Text('+62 ', style: primaryTextStyle.copyWith(fontSize: 15)),
+          ),
           SizedBox(height: 10),
           Text(
             'Kata Sandi',
@@ -219,11 +237,45 @@ class _RegisterPageState extends State<RegisterPage> {
     Widget actionBtn() {
       return Column(
         children: [
-          CustomButton(
-              text: 'Bergabung Sekarang',
-              onPressed: () {
-                Navigator.pushNamed(context, '/dashboard');
-              }),
+          BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is RegisterSuccess) {
+                succsessDialog(context, 'Berhasil Registrasi',
+                    () => Navigator.pushNamed(context, '/login'));
+              }
+              if (state is AuthFailed) {
+                showMessageModal(context, 'Gagal Registrasi, ${state.message}');
+              }
+            },
+            builder: (context, state) {
+              if (state is AuthLoading) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return CustomButton(
+                  text: 'Bergabung Sekarang',
+                  onPressed: () {
+                    if (passwordController.text !=
+                        confirmPasswordController.text) {
+                      showMessageModal(context, 'Kata Sandi Tidak Sama');
+                    } else {
+                      context.read<AuthBloc>().add(RegisterUser(
+                          RegisterRequestModel(
+                              firstName: firstNameController.text,
+                              lastName: lastNameController.text,
+                              email: emailController.text,
+                              phone: '62' + phoneController.text,
+                              password: passwordController.text,
+                              passwordConfirmation:
+                                  confirmPasswordController.text,
+                              city: _selectedCity,
+                              province: _selectedProvince,
+                              address: addressController.text,
+                              status: 'active',
+                              pictureProfileFile: _image)));
+                    }
+                  });
+            },
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

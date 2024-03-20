@@ -10,6 +10,7 @@ import 'package:propertio_mobile/data/model/request/udpate_profil_request_model.
 
 import 'package:propertio_mobile/data/model/responses/address_response_model.dart';
 import 'package:propertio_mobile/data/model/responses/profil_response_model.dart';
+import 'package:propertio_mobile/shared/api_path.dart';
 import 'package:propertio_mobile/shared/theme.dart';
 import 'package:propertio_mobile/ui/component/bottom_modal.dart';
 import 'package:propertio_mobile/ui/component/button.dart';
@@ -162,85 +163,112 @@ class _ModalEditProfileState extends State<ModalEditProfile> {
       );
     }
 
-    return Container(
-        height: 800,
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-        child: ListView(
-          children: [
-            Text(
-              'Ubah Data Profil',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: semiBold,
-              ),
+    Widget formEditProfile() {
+      return Column(
+        children: [
+          SizedBox(height: 24),
+          Text(
+            'Ubah Data Profil',
+            style: primaryTextStyle.copyWith(
+              fontSize: 16,
+              fontWeight: semiBold,
             ),
-            SizedBox(height: 16),
-            GestureDetector(
-              onTap: _pickImage,
-              child: CircleAvatar(
-                radius: 80,
-                backgroundImage: _image != null ? FileImage(_image!) : null,
-                child:
-                    _image == null ? Icon(Icons.add_a_photo, size: 40) : null,
-              ),
-            ),
-            SizedBox(height: 20),
-            CustomTextField(
-              controller: nameController,
-              title: 'Nama Lengkap',
-              mandatory: true,
-              hintText: 'Masukan Nama Lengkap Anda',
-            ),
-            CustomTextField(
-              controller: emailController,
-              title: 'Email',
-              mandatory: true,
-              hintText: 'Masukan Email Anda',
-            ),
-            CustomTextField(
-              controller: phoneController,
-              title: 'Nomor Telepon',
-              mandatory: true,
-              hintText: 'Masukan Nomor Teleopon Anda',
-            ),
-            getProvince(),
-            getCity(),
-            CustomTextField(
-              controller: addressController,
-              title: 'Alamat',
-              mandatory: true,
-              hintText: 'Masukan Alamat Anda',
-            ),
-            BlocConsumer<ProfileBloc, ProfileState>(
-              listener: (context, state) {
-                if (state is ProfileSuccess) {
-                  showMessageModal(context, 'Berhasil ,Data berhasil diubah',
-                      color: Colors.green);
-                }
-                if (state is ProfileError) {
-                  showMessageModal(context, state.message);
-                }
-              },
-              builder: (context, state) {
-                return CustomButton(
-                    text: 'Simpan',
-                    onPressed: () {
-                      final updateProfil = UpdateProfilRequestModel(
-                          fullName: nameController.text,
-                          email: emailController.text,
-                          phone: phoneController.text,
-                          address: addressController.text,
-                          province: _selectedProvince!,
-                          city: _selectedCity!,
-                          pictureProfileFile: _image);
-                      context
-                          .read<ProfileBloc>()
-                          .add(OnUpdateProfil(updateProfil));
-                    });
-              },
-            )
-          ],
-        ));
+          ),
+          SizedBox(height: 16),
+          GestureDetector(
+            onTap: _pickImage,
+            child: _image == null
+                ? CircleAvatar(
+                    radius: 60,
+                    backgroundImage: NetworkImage(
+                      ApiPath.image(
+                          '${widget.profil.data!.userData!.pictureProfile}'),
+                      scale: 1.0,
+                    ),
+                  )
+                : CircleAvatar(
+                    radius: 60,
+                    backgroundImage: FileImage(_image!, scale: 1.0),
+                    // child:
+                    //     _image == null ? Icon(Icons.add_a_photo, size: 40) : null,
+                  ),
+          ),
+          SizedBox(height: 20),
+          CustomTextField(
+            controller: nameController,
+            title: 'Nama Lengkap',
+            mandatory: true,
+            hintText: 'Masukan Nama Lengkap Anda',
+          ),
+          CustomTextField(
+            controller: emailController,
+            title: 'Email',
+            mandatory: true,
+            hintText: 'Masukan Email Anda',
+          ),
+          CustomTextField(
+            controller: phoneController,
+            title: 'Nomor Telepon',
+            mandatory: true,
+            hintText: 'Masukan Nomor Teleopon Anda',
+          ),
+          getProvince(),
+          getCity(),
+          CustomTextField(
+            controller: addressController,
+            title: 'Alamat',
+            mandatory: true,
+            hintText: 'Masukan Alamat Anda',
+          ),
+          BlocConsumer<ProfileBloc, ProfileState>(
+            listener: (context, state) {
+              if (state is ProfileSuccess) {
+                // context.read<ProfileBloc>().add(OnGetProfile());
+                // showMessageModal(context, 'Berhasil ,Data berhasil diubah',
+                //     color: Colors.green);
+                succsessDialog(context, 'Berhasil ,Data berhasil diubah',
+                    () => Navigator.pop(context));
+                // Navigator.pop(context);
+              }
+              if (state is ProfileError) {
+                showMessageModal(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              if (state is ProfileLoading) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return CustomButton(
+                  text: 'Simpan',
+                  onPressed: () {
+                    final updateProfil = UpdateProfilRequestModel(
+                        fullName: nameController.text,
+                        email: emailController.text,
+                        phone: phoneController.text,
+                        address: addressController.text,
+                        province: _selectedProvince!,
+                        city: _selectedCity!,
+                        pictureProfileFile: _image);
+                    context
+                        .read<ProfileBloc>()
+                        .add(OnUpdateProfil(updateProfil));
+                  });
+            },
+          )
+        ],
+      );
+    }
+
+    return Scaffold(
+      body: SafeArea(
+          child: Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+              child: ListView(
+                children: [
+                  formEditProfile(),
+                ],
+              ))),
+    );
   }
 }

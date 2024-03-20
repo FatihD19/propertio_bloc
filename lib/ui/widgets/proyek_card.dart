@@ -136,11 +136,14 @@ class ProyekCard extends StatelessWidget {
                 hideAgent == true
                     ? SizedBox()
                     : Positioned(
-                        top: 130,
+                        top: 120,
                         right: 15,
                         child: CircleAvatar(
                           radius: 30,
-                          backgroundImage: AssetImage('assets/img_agent.png'),
+                          backgroundImage: NetworkImage(
+                            ApiPath.image(
+                                '${proyek.developer?.pictureProfileFile}'),
+                          ),
                         ),
                       )
               ],

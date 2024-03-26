@@ -9,6 +9,8 @@ import 'package:propertio_mobile/bloc/chat/chat_bloc.dart';
 import 'package:propertio_mobile/bloc/favorite/favorite_bloc.dart';
 import 'package:propertio_mobile/bloc/homePage/home_page_bloc.dart';
 import 'package:propertio_mobile/bloc/monitoring/monitoring_bloc.dart';
+import 'package:propertio_mobile/bloc/profile/reset_password/reset_password_cubit.dart';
+
 import 'package:propertio_mobile/bloc/sendMessage/send_message_bloc.dart';
 import 'package:propertio_mobile/data/datasource/address_remote_datasource.dart';
 import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
@@ -17,6 +19,7 @@ import 'package:propertio_mobile/data/datasource/favortite_remote_datasource.dar
 import 'package:propertio_mobile/data/datasource/homepage_remote_datasource.dart';
 import 'package:propertio_mobile/data/datasource/auth_remote_datasource.dart';
 import 'package:propertio_mobile/data/datasource/monitoring_remote_datasource.dart';
+import 'package:propertio_mobile/data/datasource/profile_remote_datasource.dart';
 import 'package:propertio_mobile/data/datasource/send_message_remote_datasource.dart';
 
 final locator = GetIt.instance;
@@ -32,6 +35,7 @@ Future<void> initLocator() async {
   locator.registerFactory(() => SendMessageBloc(locator()));
   locator.registerFactory(() => MonitoringBloc(locator()));
   locator.registerFactory(() => ChatBloc(locator()));
+  locator.registerFactory(() => ResetPasswordCubit(locator()));
   // locator.registerFactory(() => AddressCubit(locator()));
 
   locator.registerFactory(() => FavoriteBloc(locator()));
@@ -52,4 +56,6 @@ Future<void> initLocator() async {
       () => MonitoringRemoteDataSource());
   locator.registerLazySingleton<ChatRemoteDataSource>(
       () => ChatRemoteDataSource());
+  locator.registerLazySingleton<ProfileRemoteDataSource>(
+      () => ProfileRemoteDataSource());
 }

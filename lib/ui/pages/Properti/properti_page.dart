@@ -79,7 +79,7 @@ class _PropertiPageState extends State<PropertiPage> {
           }
           if (state is PropertiLoaded) {
             return Column(
-              children: state.listPropertiModel.data!.projects!
+              children: state.listPropertiModel!.data!.projects!
                   .map((propertiBaru) => NewPropertiCard(propertiBaru))
                   .toList(),
             );
@@ -130,9 +130,9 @@ class _PropertiPageState extends State<PropertiPage> {
                 if (state is PropertiLoaded) {
                   return Column(
                     children:
-                        state.listPropertiModel.data!.properties!.length == 0
+                        state.listPropertiModel!.data!.properties!.length == 0
                             ? [Text('Tidak ada properti')]
-                            : state.listPropertiModel.data!.properties!
+                            : state.listPropertiModel!.data!.properties!
                                 .map((properti) => PropertiCard(properti))
                                 .toList(),
                   );

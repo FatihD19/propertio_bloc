@@ -6,6 +6,7 @@ import 'package:propertio_mobile/shared/theme.dart';
 import 'package:propertio_mobile/ui/component/search_form.dart';
 import 'package:propertio_mobile/ui/component/text_failure.dart';
 import 'package:propertio_mobile/ui/pages/Properti/properti_page.dart';
+import 'package:propertio_mobile/ui/pages/Proyek/proyek_page.dart';
 import 'package:propertio_mobile/ui/view/info_promo_view.dart';
 import 'package:propertio_mobile/ui/widgets/agent_card.dart';
 import 'package:propertio_mobile/ui/widgets/item_tipe_apartemen.dart';
@@ -68,7 +69,14 @@ class _HomePageState extends State<HomePage> {
               Text('Rekomendasi',
                   style: primaryTextStyle.copyWith(
                       fontWeight: bold, fontSize: 16)),
-              Text('Lihat lebih banyak', style: thirdTextStyle)
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PropertiPage(isRent: false)));
+                  },
+                  child: Text('Lihat lebih banyak', style: thirdTextStyle))
             ],
           ),
           SizedBox(height: 8),
@@ -106,7 +114,12 @@ class _HomePageState extends State<HomePage> {
               Text('Pilihan Proyek Terbaik',
                   style: primaryTextStyle.copyWith(
                       fontWeight: bold, fontSize: 16)),
-              Text('Lihat lebih banyak', style: thirdTextStyle)
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProyekPage()));
+                  },
+                  child: Text('Lihat lebih banyak', style: thirdTextStyle))
             ],
           ),
           SizedBox(height: 8),
@@ -143,7 +156,12 @@ class _HomePageState extends State<HomePage> {
               Text('Proyek Terbaru',
                   style: primaryTextStyle.copyWith(
                       fontWeight: bold, fontSize: 16)),
-              Text('Lihat lebih banyak', style: thirdTextStyle)
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProyekPage()));
+                  },
+                  child: Text('Lihat lebih banyak', style: thirdTextStyle))
             ],
           ),
           SizedBox(height: 8),

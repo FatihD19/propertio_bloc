@@ -14,7 +14,7 @@ final class PropertiLoading extends PropertiState {}
 final class PropertiLoaded extends PropertiState {
   final ListPropertyModel listPropertiModel;
 
-  PropertiLoaded(this.listPropertiModel);
+  const PropertiLoaded(this.listPropertiModel);
 
   @override
   List<Object> get props => [listPropertiModel];
@@ -28,6 +28,18 @@ final class PropertiDetailLoaded extends PropertiState {
   @override
   List<Object> get props => [propertiModel];
 }
+
+// final class PropertiDetailLoaded extends PropertiLoaded {
+//   final DetailPropertiResponseModel propertiModel;
+
+//   const PropertiDetailLoaded(
+//     this.propertiModel,
+//     ListPropertyModel listPropertiModel,
+//   ) : super(listPropertiModel);
+
+//   @override
+//   List<Object> get props => [propertiModel, listPropertiModel];
+// }
 
 final class PropertiError extends PropertiState {
   final String message;

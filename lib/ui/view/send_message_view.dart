@@ -28,19 +28,16 @@ class ModalInformasi extends StatefulWidget {
 }
 
 class _ModalInformasiState extends State<ModalInformasi> {
-  TextEditingController nameController =
-      TextEditingController(text: 'polcmsekke');
-  TextEditingController phoneController =
-      TextEditingController(text: '08199023456789');
-  TextEditingController emailController =
-      TextEditingController(text: 'mke900looppl@mail.cs');
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: MediaQuery.of(context).size.height * 0.9,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      child: Column(
+      child: ListView(
         children: [
           Text(
             'Dapatkan informasi lebih lanjut',

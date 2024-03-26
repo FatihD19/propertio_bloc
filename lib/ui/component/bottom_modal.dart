@@ -278,15 +278,21 @@ class ModalProgress extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 16),
-                    CustomTextField(
-                      title: 'Judul Progress',
-                      hintText:
-                          '${state.projectProgress.data?.briefDescription}',
+                    IgnorePointer(
+                      ignoring: true,
+                      child: CustomTextField(
+                        title: 'Judul Progress',
+                        hintText:
+                            '${state.projectProgress.data?.briefDescription}',
+                      ),
                     ),
-                    CustomTextField(
-                      title: 'Deskripsi Progress',
-                      hintText:
-                          '${state.projectProgress.data?.detailDescription}',
+                    IgnorePointer(
+                      ignoring: true,
+                      child: CustomTextField(
+                        title: 'Deskripsi Progress',
+                        hintText:
+                            '${state.projectProgress.data?.detailDescription}',
+                      ),
                     ),
                     Text(
                       'Bukti Visual',

@@ -19,12 +19,6 @@ class ListProjectModel {
         message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
-
-  Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message,
-        "data": data?.toJson(),
-      };
 }
 
 class Data {
@@ -57,17 +51,4 @@ class Data {
             ? null
             : Pagination.fromJson(json["pagination"]),
       );
-
-  Map<String, dynamic> toJson() => {
-        "projects_recomendation": projectsRecomendation == null
-            ? []
-            : List<dynamic>.from(projectsRecomendation!.map((x) => x.toJson())),
-        "projects": projects == null
-            ? []
-            : List<dynamic>.from(projects!.map((x) => x.toJson())),
-        "developers": developers == null
-            ? []
-            : List<dynamic>.from(developers!.map((x) => x.toJson())),
-        "pagination": pagination?.toJson(),
-      };
 }

@@ -61,9 +61,9 @@ class HeadlinePropertiView extends StatelessWidget {
                   // Image.asset('assets/ic_circle_like.png',
                   //     fit: BoxFit.cover, width: 30, height: 30),
                   SizedBox(width: 4),
-                  Image.asset('assets/ic_circle_print.png',
-                      width: 30, height: 30),
-                  SizedBox(width: 4),
+                  // Image.asset('assets/ic_circle_print.png',
+                  //     width: 30, height: 30),
+                  // SizedBox(width: 4),
                   GestureDetector(
                     onTap: () async {
                       await Share.share('Lihat Properti berikut $shareUrl',

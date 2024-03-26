@@ -109,56 +109,56 @@ class DetailPropertiPage extends StatelessWidget {
                         DetailInfoView(listInfo: [
                           RowTextInfo(
                               title: 'Kode Unit',
-                              value: detailProperti.propertyCode.toString()),
+                              value: detailProperti.propertyCode ?? ''),
                           RowTextInfo(
                               title: 'Harga',
-                              value: detailProperti.propertyDetail!.price
-                                  .toString()),
+                              value:
+                                  detailProperti.propertyDetail!.price ?? ''),
                           RowTextInfo(
                               title: 'Jumlah Lantai',
-                              value: detailProperti.propertyDetail!.floor
-                                  .toString()),
+                              value:
+                                  detailProperti.propertyDetail!.floor ?? '0'),
                           RowTextInfo(
                               title: 'Kamar Mandi',
-                              value: detailProperti.propertyDetail!.bathroom
-                                  .toString()),
+                              value: detailProperti.propertyDetail!.bathroom ??
+                                  '0'),
                           RowTextInfo(
                               title: 'Daya Listrik',
-                              value: detailProperti.propertyDetail!.powerSupply
-                                  .toString()),
+                              value:
+                                  detailProperti.propertyDetail!.powerSupply ??
+                                      ''),
                           RowTextInfo(
                               title: 'Tipe Properti',
-                              value:
-                                  detailProperti.propertyType!.name.toString()),
+                              value: detailProperti.propertyType!.name ?? ''),
                           detailProperti.listingType == 'rent'
                               ? SizedBox()
                               : RowTextInfo(
                                   title: 'Sertifikat',
-                                  value: detailProperti.certificate.toString()),
+                                  value: detailProperti.certificate ?? ''),
                           RowTextInfo(
                               title: 'Luas Tanah',
                               value:
-                                  '${detailProperti.propertyDetail?.surfaceArea} m2'),
+                                  '${detailProperti.propertyDetail?.surfaceArea ?? '0'} m2'),
                           RowTextInfo(
                               title: 'Luas Bangunan',
                               value:
-                                  '${detailProperti.propertyDetail?.buildingArea} m2'),
+                                  '${detailProperti.propertyDetail?.buildingArea ?? '0'} m2'),
                           RowTextInfo(
                               title: 'Kamar',
-                              value: detailProperti.propertyDetail!.bedroom
-                                  .toString()),
+                              value: detailProperti.propertyDetail!.bedroom ??
+                                  '0'),
                           RowTextInfo(
                               title: 'Tempat Parkir',
-                              value: detailProperti.propertyDetail!.garage
-                                  .toString()),
+                              value:
+                                  detailProperti.propertyDetail!.garage ?? '0'),
                           RowTextInfo(
                               title: 'Jenis Air',
-                              value: detailProperti.propertyDetail!.waterType
-                                  .toString()),
+                              value: detailProperti.propertyDetail!.waterType ??
+                                  ''),
                           RowTextInfo(
                               title: 'Kondisi',
-                              value: detailProperti.propertyDetail!.condition
-                                  .toString()),
+                              value: detailProperti.propertyDetail!.condition ??
+                                  ''),
                           RowTextInfo(
                               title: 'Akses Jalan',
                               value:
@@ -166,11 +166,11 @@ class DetailPropertiPage extends StatelessWidget {
                           RowTextInfo(
                               title: 'Menghadap',
                               value:
-                                  '${detailProperti.propertyDetail!.facing}'),
+                                  '${detailProperti.propertyDetail?.facing ?? ''}'),
                           RowTextInfo(
                               title: 'Interior',
-                              value: detailProperti.propertyDetail!.interior
-                                  .toString()),
+                              value: detailProperti.propertyDetail!.interior ??
+                                  ''),
                         ]),
                         SizedBox(height: 16),
                         AlamatInfoView([

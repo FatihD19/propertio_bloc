@@ -35,7 +35,7 @@ class DetailProyekPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget listUnit(List<UnitModel> listUnit) {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text('Daftar Unit',
               style: primaryTextStyle.copyWith(fontWeight: bold, fontSize: 16)),
@@ -43,6 +43,7 @@ class DetailProyekPage extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: listUnit
                   .map((unit) => SmallProyekCardUnit(
                         unit: unit,

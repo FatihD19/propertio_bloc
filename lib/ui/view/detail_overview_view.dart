@@ -88,8 +88,8 @@ class DetailOverView extends StatelessWidget {
                             '$certificate'),
                       ]
                     : [
-                        iconInfo('assets/ic_square_tipe.png', '$propertiType',
-                            'Ruko'),
+                        iconInfo('assets/ic_square_tipe.png', 'Tipe Properti',
+                            '$propertiType'),
                         iconInfo('assets/ic_square_luas.png', 'Luas',
                             ' ${buildingArea ?? 0} m2 / ${surfaceArea ?? 0} m2'),
                         iconInfo('assets/ic_square_bed.png', 'Kamar Tidur',

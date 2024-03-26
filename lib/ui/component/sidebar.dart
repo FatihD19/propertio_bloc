@@ -145,8 +145,8 @@ class SideBar extends StatelessWidget {
                             'assets/ic_new_properti.png', ProyekPage()),
                         menuSidebar(
                             'KPR', 'assets/ic_kpr.png', SimulasiKprPage()),
-                        menuSidebar('Berita', 'assets/ic_news.png',
-                            MortgageCalculator()),
+                        menuSidebar(
+                            'Berita', 'assets/ic_news.png', SimulasiKprPage()),
                       ],
                     ),
                   ),

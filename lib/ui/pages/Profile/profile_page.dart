@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:propertio_mobile/bloc/profile/profile_bloc.dart';
+import 'package:propertio_mobile/bloc/profile/reset_password/reset_password_cubit.dart';
+import 'package:propertio_mobile/data/model/request/udpate_profil_request_model.dart';
 import 'package:propertio_mobile/data/model/responses/profil_response_model.dart';
 import 'package:propertio_mobile/shared/api_path.dart';
 import 'package:propertio_mobile/shared/theme.dart';
@@ -11,8 +13,19 @@ import 'package:propertio_mobile/ui/component/text_failure.dart';
 import 'package:propertio_mobile/ui/component/textfieldForm.dart';
 import 'package:propertio_mobile/ui/view/edit_profil_view.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class ProfilePage extends StatefulWidget {
+  ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  TextEditingController oldPasswordController = TextEditingController();
+
+  TextEditingController newPasswordController = TextEditingController();
+
+  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +51,44 @@ class ProfilePage extends StatelessWidget {
               Text('Ganti Kata Sandi',
                   style: primaryTextStyle.copyWith(
                       fontWeight: bold, fontSize: 16)),
-              PasswordField(hintText: 'Kata Sandi Lama'),
-              PasswordField(hintText: 'Kata Sandi Baru'),
-              PasswordField(hintText: 'Konfirmasi Kata Sandi'),
+              PasswordField(
+                  passontroller: oldPasswordController,
+                  hintText: 'Kata Sandi Lama'),
+              PasswordField(
+                  passontroller: newPasswordController,
+                  hintText: 'Kata Sandi Baru'),
+              PasswordField(
+                  passontroller: confirmPasswordController,
+                  hintText: 'Konfirmasi Kata Sandi'),
               SizedBox(height: 16),
-              CustomButton(
-                  text: 'Ganti Kata Sandi',
-                  color: Color(0xff21C35E),
-                  onPressed: () {})
+              BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
+                listener: (context, state) {
+                  if (state is ResetPasswordSuccess) {
+                    showMessageModal(context, state.message,
+                        color: Colors.green);
+                    oldPasswordController.clear();
+                    newPasswordController.clear();
+                    confirmPasswordController.clear();
+                    setState(() {});
+                  }
+                  if (state is ResetPasswordError) {
+                    showMessageModal(context, state.message);
+                  }
+                },
+                builder: (context, state) {
+                  return CustomButton(
+                      text: 'Ganti Kata Sandi',
+                      color: Color(0xff21C35E),
+                      onPressed: () {
+                        context.read<ResetPasswordCubit>().resetPassword(
+                            ResetPasswordRequestModel(
+                                oldPassword: oldPasswordController.text,
+                                password: newPasswordController.text,
+                                passwordConfirmation:
+                                    confirmPasswordController.text));
+                      });
+                },
+              )
             ],
           ));
     }

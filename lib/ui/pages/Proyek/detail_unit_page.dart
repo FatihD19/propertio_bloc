@@ -8,6 +8,7 @@ import 'package:propertio_mobile/data/model/responses/detail_unit_response_model
 import 'package:propertio_mobile/shared/api_path.dart';
 import 'package:propertio_mobile/shared/theme.dart';
 import 'package:propertio_mobile/shared/utils.dart';
+import 'package:propertio_mobile/ui/component/bottom_modal.dart';
 import 'package:propertio_mobile/ui/component/button.dart';
 import 'package:propertio_mobile/ui/component/text_failure.dart';
 import 'package:propertio_mobile/ui/component/text_price.dart';
@@ -22,6 +23,7 @@ import 'package:propertio_mobile/ui/view/info_map_view.dart';
 import 'package:propertio_mobile/ui/view/info_promo_view.dart';
 import 'package:propertio_mobile/ui/view/infrastructure_view.dart';
 import 'package:propertio_mobile/ui/view/listile_agen.dart';
+import 'package:propertio_mobile/ui/view/send_message_view.dart';
 import 'package:propertio_mobile/ui/view/video_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -97,7 +99,9 @@ class DetailUnitPage extends StatelessWidget {
                                 title: 'Kode Unit',
                                 value: detailUnit.unitCode ?? '0'),
                             RowTextInfo(
-                                title: 'Harga', value: detailUnit.price ?? '0'),
+                                title: 'Harga',
+                                value: formatCurrency('${detailUnit.price}') ??
+                                    '0'),
                             RowTextInfo(
                                 title: 'Jumlah Lantai',
                                 value: detailUnit.floor ?? '0'),
@@ -185,7 +189,18 @@ class DetailUnitPage extends StatelessWidget {
 
                           SizedBox(height: 16),
 
-                          ListileDeveloper(developer: detailUnit.developer)
+                          ListileDeveloper(
+                            developer: detailUnit.developer,
+                            onTap: () {
+                              showCustomSnackbar(
+                                  context,
+                                  ModalInformasi(
+                                    developer: detailUnit.developer,
+                                    projectCode: detailUnit.projectCode,
+                                  ),
+                                  type: 'info');
+                            },
+                          )
                         ],
                       ),
                     ),

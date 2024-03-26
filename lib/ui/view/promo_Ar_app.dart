@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:propertio_mobile/shared/theme.dart';
 import 'package:propertio_mobile/ui/component/container_style.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PromoArApp extends StatelessWidget {
   const PromoArApp({super.key});
@@ -21,7 +22,13 @@ class PromoArApp extends StatelessWidget {
             style: primaryTextStyle.copyWith(fontSize: 12),
           ),
           SizedBox(height: 8),
-          Center(child: Image.asset('assets/img_getOn_playstore.png'))
+          GestureDetector(
+              onTap: () {
+                launchUrl(Uri.parse(
+                    'https://play.google.com/store/apps/details?id=com.CitraNumusiBirawa.CNImmersiveProperty'));
+              },
+              child:
+                  Center(child: Image.asset('assets/img_getOn_playstore.png')))
         ],
       ),
     );

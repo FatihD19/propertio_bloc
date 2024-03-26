@@ -34,10 +34,6 @@ class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0;
   // Sidebar menu items
 
-  String _selectedSidebarItem = 'Agent'; // Default selected sidebar item
-
-  bool sidebarSection = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,28 +80,13 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index) async {
     setState(() {
-      sidebarSection = false;
       _selectedIndex = index;
     });
+    if ((index == 1 || index == 3 || index == 4) &&
+        await AuthLocalDataSource.statusLogin() == false) {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
   }
-
-  // Widget _buildContent() {
-  //   // Return the appropriate content based on the selected item
-  //   switch (_selectedSidebarItem) {
-  //     case 'Beli':
-  //       return PropertiPage();
-  //     case 'Sewa':
-  //       return PropertiPage(isRent: true);
-  //     case 'Agent':
-  //       return AgentPage();
-  //     case 'Properti Baru':
-  //       return ProyekPage();
-  //     case 'KPR':
-  //       return SimulasiKprPage();
-  //     default:
-  //       return Container();
-  //   }
-  // }
 }

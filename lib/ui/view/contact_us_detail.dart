@@ -98,27 +98,30 @@ class ContactUsDetail extends StatelessWidget {
     return isUnit == true
         ? unitBooking()
         : isProyek == true
-            ? Container(
-                height: 120,
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Harga mulai dari',
-                            style: secondaryTextStyle.copyWith(fontSize: 12)),
-                        Container(
-                          width: 200,
-                          child: Text('$price',
-                              style: thirdTextStyle.copyWith(
-                                  fontSize: 24, fontWeight: bold)),
-                        ),
-                      ],
-                    ),
-                    contactBtn()
-                  ],
+            ? FittedBox(
+                fit: BoxFit.contain,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Harga mulai dari',
+                              style: secondaryTextStyle.copyWith(fontSize: 12)),
+                          Container(
+                            width: 200, // Atur lebar sesuai kebutuhan
+                            child: Text('$price',
+                                style: thirdTextStyle.copyWith(
+                                    fontSize: 18, fontWeight: bold)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 5),
+                      contactBtn()
+                    ],
+                  ),
                 ),
               )
             : Container(

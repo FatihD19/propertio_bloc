@@ -16,6 +16,7 @@ import 'package:propertio_mobile/bloc/homePage/home_page_bloc.dart';
 import 'package:propertio_mobile/bloc/kpr/kpr_cubit.dart';
 import 'package:propertio_mobile/bloc/monitoring/monitoring_bloc.dart';
 import 'package:propertio_mobile/bloc/profile/profile_bloc.dart';
+import 'package:propertio_mobile/bloc/profile/reset_password/reset_password_cubit.dart';
 import 'package:propertio_mobile/bloc/project/project_bloc.dart';
 import 'package:propertio_mobile/bloc/properti/properti_bloc.dart';
 import 'package:propertio_mobile/bloc/propertyType/property_type_bloc.dart';
@@ -86,6 +87,7 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 locator<MonitoringBloc>()..add(OnGetProjectProgress())),
         BlocProvider(create: (context) => locator<ChatBloc>()),
+        BlocProvider(create: (context) => locator<ResetPasswordCubit>()),
         // BlocProvider(create: (context) => AddressBloc()..add(OnGetProvince())),
         // BlocProvider(create: (context) => locator<AddressCubit>()),
       ],

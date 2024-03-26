@@ -30,22 +30,28 @@ class _DetailInfoViewState extends State<DetailInfoView> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              CircleAvatar(
-                backgroundColor: secondaryColor,
-                child: IconButton(
-                  icon: Icon(
-                    isExpanded ? Icons.expand_less : Icons.expand_more,
-                    color: buttonTextColor,
-                  ),
-                  onPressed: () {
+              Container(
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                  color: secondaryColor,
+                  shape: BoxShape.circle,
+                ),
+                child: InkWell(
+                  onTap: () {
                     setState(() {
                       isExpanded = !isExpanded;
                     });
                   },
+                  child: Icon(
+                    isExpanded ? Icons.expand_less : Icons.expand_more,
+                    color: buttonTextColor,
+                  ),
                 ),
-              ),
+              )
             ],
           ),
+          SizedBox(height: 16),
           Column(
             children: !isExpanded && widget.listInfo.length > 3
                 ? widget.listInfo.sublist(0, 3)

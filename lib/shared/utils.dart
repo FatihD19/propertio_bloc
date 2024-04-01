@@ -52,6 +52,17 @@ String calculateTimeDifference(String apiTimeString) {
   }
 }
 
+int calculateTimeChat(DateTime apiTimeString) {
+  // Waktu saat ini
+  DateTime currentTime = DateTime.now();
+
+  var apiTime = apiTimeString.toUtc().add(Duration(hours: 7));
+  // Hitung selisih waktu
+  Duration difference = currentTime.difference(apiTime);
+
+  return difference.inSeconds;
+}
+
 Future<String> formatStringToIndonesianDate(String dateString) async {
   try {
     DateFormat inputFormat = DateFormat('yyyy-MM-dd');
@@ -73,7 +84,12 @@ String formatDate(DateTime dateTime) {
 }
 
 String formatClock(DateTime dateTime) {
-  // Locale Indonesia
+  // Set zona waktu ke Waktu Indonesia Bagian Barat (WIB)
+  var jakartaTime = dateTime.toUtc().add(Duration(hours: 7));
+
+  // Format waktu dengan zona waktu yang telah disetel
   var format = DateFormat('HH:mm');
-  return format.format(dateTime);
+
+  // Format waktu dengan zona waktu yang telah disetel
+  return format.format(jakartaTime);
 }

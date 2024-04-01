@@ -107,13 +107,16 @@ class HeadlinePropertiView extends StatelessWidget {
                 ],
               ),
               Expanded(
-                child: Row(
-                  children: [
-                    Image.asset('assets/ic_eye.png', width: 16, height: 16),
-                    SizedBox(width: 8),
-                    Text('$countViews kali dilihat',
-                        style: primaryTextStyle.copyWith(fontSize: 12)),
-                  ],
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    children: [
+                      Image.asset('assets/ic_eye.png', width: 16, height: 16),
+                      SizedBox(width: 8),
+                      Text('$countViews kali dilihat',
+                          style: primaryTextStyle.copyWith(fontSize: 12)),
+                    ],
+                  ),
                 ),
               ),
             ],

@@ -7,8 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:propertio_mobile/bloc/chat/chat_bloc.dart';
 import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
+import 'package:propertio_mobile/data/model/chat_model.dart';
 import 'package:propertio_mobile/shared/theme.dart';
 import 'package:propertio_mobile/shared/utils.dart';
+import 'package:propertio_mobile/ui/component/bottom_modal.dart';
 import 'package:propertio_mobile/ui/component/sidebar.dart';
 import 'package:propertio_mobile/ui/component/text_failure.dart';
 import 'package:propertio_mobile/ui/component/textfieldForm.dart';
@@ -31,11 +33,11 @@ class _ChatMonitoringPageState extends State<ChatMonitoringPage> {
   final ScrollController _scrollController = ScrollController();
 
   TextEditingController _messageController = TextEditingController();
-
-  List chat = [];
+  DateTime? lastMessageTime;
+  List<ChatModel> chat = [];
 
   void _scrollToBottom() {
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(Duration(milliseconds: 1000), () {
       _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
     });
   }
@@ -47,7 +49,7 @@ class _ChatMonitoringPageState extends State<ChatMonitoringPage> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
+    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
       context.read<ChatBloc>().add(OnGetListChat(widget.idMonitoring));
     });
   }
@@ -84,7 +86,24 @@ class _ChatMonitoringPageState extends State<ChatMonitoringPage> {
                 child: BlocListener<ChatBloc, ChatState>(
                   listener: (context, state) {
                     if (state is ChatLoaded) {
-                      chat = state.data.data!;
+                      final newMessages = state.data.data!;
+
+                      // Deteksi pesan baru berdasarkan waktu created_at
+                      if (lastMessageTime != null &&
+                          newMessages.isNotEmpty &&
+                          newMessages.last.createdAt!
+                              .isAfter(lastMessageTime!) &&
+                          newMessages.last.sender != idAccount) {
+                        showMessageModal(context, 'Ada pesan baru',
+                            color: Colors.green);
+                        _scrollToBottom(); // Scroll ke pesan terbaru jika ada pesan baru
+                      }
+
+                      lastMessageTime = newMessages.isNotEmpty
+                          ? newMessages.last.createdAt
+                          : null;
+
+                      chat = newMessages;
                       setState(() {});
                     }
                   },
@@ -155,7 +174,7 @@ class _ChatMonitoringPageState extends State<ChatMonitoringPage> {
                     Expanded(
                         child: CustomTextField(
                       controller: _messageController,
-                      hintText: 'Ketik Pesan',
+                      hintText: 'ketik pesan...',
                     )),
                     SizedBox(width: 16.0),
                     BlocConsumer<ChatBloc, ChatState>(

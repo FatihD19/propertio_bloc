@@ -30,7 +30,7 @@ void showMessageModal(BuildContext context, String message, {Color? color}) {
     message: message,
     flushbarPosition: FlushbarPosition.TOP,
     backgroundColor: color != null ? color : Colors.red,
-    duration: const Duration(seconds: 2),
+    duration: const Duration(seconds: 1),
   ).show(context);
 }
 

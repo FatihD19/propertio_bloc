@@ -22,6 +22,11 @@ String formatCurrency(String value) {
   }
 }
 
+String formatCurrencyDouble(double amount) {
+  String formattedString = amount.toStringAsFixed(0);
+  return formattedString.currencyFormatRp;
+}
+
 String calculateTimeDifference(String apiTimeString) {
   // Konversi string waktu dari API menjadi objek DateTime
   DateTime apiTime = DateTime.parse(apiTimeString);

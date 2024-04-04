@@ -8,41 +8,44 @@ part 'kpr_state.dart';
 class KprCubit extends Cubit<KprState> {
   KprCubit() : super(KprInitial());
   void calculate(LoanSimulationInput input) {
-    double calculateKpr(int years) {
-      double loanAmount = input.propertyPrice - input.downPayment;
-      double monthlyInterestRate = input.interestRate / 100 / 12;
-      int numberOfPayments = years * 12;
+    // double calculateKpr(int years) {
+    //   double loanAmount = input.propertyPrice - input.downPayment;
+    //   double monthlyInterestRate = input.interestRate / 100 / 12;
+    //   int numberOfPayments = years * 12;
 
-      double monthlyPayment = (loanAmount * monthlyInterestRate) /
-          (1 - math.pow(1 + monthlyInterestRate, -numberOfPayments));
+    //   double monthlyPayment = (loanAmount * monthlyInterestRate) /
+    //       (1 - math.pow(1 + monthlyInterestRate, -numberOfPayments));
 
-      return monthlyPayment;
-    }
+    //   return monthlyPayment;
+    // }
 
+    // int numberOfPayments = years * 12;
+
+    // double monthlyPayment = (loanAmount * monthlyInterestRate) /
+    //     (1 - math.pow(1 + monthlyInterestRate, -numberOfPayments));
+    double loanAmount = input.propertyPrice - input.downPayment;
+    double monthlyInterestRate = input.interestRate / 100 / 12;
     var listYear = [5, 10, 15, 20, 25, 30];
 
     if (!listYear.contains(input.loanTerm)) {
       listYear.insert(0, input.loanTerm);
     }
-    // listYear.sort();
 
     print(listYear);
     var listLoan = listYear
-        .map((e) => LoanForYear(year: e, installment: calculateKpr(e)))
+        .map((jangkaWaktu) => LoanForYear(
+            year: jangkaWaktu,
+            installment: (loanAmount * monthlyInterestRate) /
+                (1 - math.pow(1 + monthlyInterestRate, -(jangkaWaktu * 12)))))
         .toList();
 
     emit(KprLoaded(LoanSimulationResult(
-        summaryPrincipalLoan: input.propertyPrice - input.downPayment,
-        summaryInterestPrice: ((input.propertyPrice - input.downPayment) *
-            (input.interestRate / 100)),
-        summaryTotalLoan: (input.propertyPrice - input.downPayment) +
-            ((input.propertyPrice - input.downPayment) *
-                (input.interestRate / 100)),
+        summaryPrincipalLoan: loanAmount,
+        summaryInterestPrice: ((loanAmount) * (input.interestRate / 100)),
+        summaryTotalLoan:
+            (loanAmount) + ((loanAmount) * (input.interestRate / 100)),
         installmentByYear: listLoan)));
   }
-  // void dispose() {
-  //   emit(KprInitial());
-  // }
 
   void reset() {
     emit(KprInitial());

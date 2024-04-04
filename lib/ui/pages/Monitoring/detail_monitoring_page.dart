@@ -114,7 +114,9 @@ class _DetailMonitoringPageState extends State<DetailMonitoringPage> {
                           ))
                     ],
                   ),
-                  ProgressProperti(widget.projectProgress),
+                  IgnorePointer(
+                      ignoring: true,
+                      child: ProgressProperti(widget.projectProgress)),
                   SizedBox(height: 8),
                   ListView.builder(
                       shrinkWrap: true,

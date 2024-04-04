@@ -13,6 +13,7 @@ import 'package:propertio_mobile/ui/component/container_style.dart';
 import 'package:propertio_mobile/ui/component/sidebar.dart';
 import 'package:propertio_mobile/ui/component/textfieldForm.dart';
 import 'package:propertio_mobile/ui/view/detail_info_view.dart';
+import 'package:propertio_mobile/ui/widgets/item_angsuran.dart';
 
 class SimulasiKprPage extends StatefulWidget {
   const SimulasiKprPage({super.key});
@@ -42,13 +43,16 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
               prefix:
                   Text("Rp. ", style: primaryTextStyle.copyWith(fontSize: 16))),
           SizedBox(height: 8),
-          CustomTextField(
-            isNumber: true,
-            controller: interestRateController,
-            title: 'Suku Bunga',
-            hintText: 'Suku Bunga',
-            mandatory: false,
-            suffix: Text('%', style: primaryTextStyle.copyWith(fontSize: 18)),
+          IgnorePointer(
+            ignoring: true,
+            child: CustomTextField(
+              isNumber: true,
+              controller: interestRateController,
+              title: 'Suku Bunga',
+              hintText: 'Suku Bunga',
+              mandatory: false,
+              suffix: Text('%', style: primaryTextStyle.copyWith(fontSize: 18)),
+            ),
           ),
           SizedBox(height: 8),
           Column(
@@ -223,41 +227,6 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
       );
     }
 
-    Widget itemAngsuran(String angsuran, String waktu, {bool? isSelected}) {
-      return Container(
-        decoration: customBoxDecoration(),
-        width: 176,
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Ringkasan :',
-                style:
-                    primaryTextStyle.copyWith(fontWeight: bold, fontSize: 12)),
-            SizedBox(height: 8),
-            Text(angsuran,
-                style:
-                    primaryTextStyle.copyWith(fontWeight: bold, fontSize: 16)),
-            SizedBox(height: 8),
-            Text('Jangka Waktu : ',
-                style: primaryTextStyle.copyWith(fontSize: 12)),
-            SizedBox(height: 8),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 46, vertical: 4),
-              decoration: BoxDecoration(
-                color:
-                    isSelected == true ? Color(0xff219653) : Color(0xff2D9CDB),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(waktu + ' Tahun',
-                  style:
-                      buttonTextStyle.copyWith(fontWeight: bold, fontSize: 12)),
-            )
-          ],
-        ),
-      );
-    }
-
     Widget listAngsuran() {
       return Column(
         children: [
@@ -270,54 +239,43 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
                   child: Column(
                     children: [
                       ringkasan(
-                          _formatCurrency(
+                          formatCurrencyDouble(
                               state.installmentResults.summaryPrincipalLoan!),
-                          _formatCurrency(
+                          formatCurrencyDouble(
                               state.installmentResults.summaryInterestPrice!),
-                          _formatCurrency(
+                          formatCurrencyDouble(
                               state.installmentResults.summaryTotalLoan!)),
                       SizedBox(height: 12),
-                      GridView(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 10,
-                                  childAspectRatio: 1.3),
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                      // GridView(
+                      //     gridDelegate:
+                      //         SliverGridDelegateWithFixedCrossAxisCount(
+                      //             crossAxisCount: 2,
+                      //             crossAxisSpacing: 10,
+                      //             mainAxisSpacing: 10,
+                      //             childAspectRatio: 1.3),
+                      //     shrinkWrap: true,
+                      //     physics: NeverScrollableScrollPhysics(),
+                      //     children: state.installmentResults.installmentByYear!
+                      //         .map((e) => ItemAngsuran(
+                      //             formatCurrencyDouble(e.installment!),
+                      //             e.year.toString(),
+                      //             isSelected: loanTermController.text ==
+                      //                     e.year.toString()
+                      //                 ? true
+                      //                 : false))
+                      //         .toList())
+                      Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
                           children: state.installmentResults.installmentByYear!
-                              .map((e) => itemAngsuran(
-                                  _formatCurrency(e.installment!),
+                              .map((e) => ItemAngsuran(
+                                  formatCurrencyDouble(e.installment!),
                                   e.year.toString(),
                                   isSelected: loanTermController.text ==
                                           e.year.toString()
                                       ? true
                                       : false))
-                              .toList()
-                          // children: [
-
-                          //   // itemAngsuran(
-                          //   //     _formatCurrency(state
-                          //   //         .installmentResults.monthlyInstallment!),
-                          //   //     loanTermController.text,
-                          //   //     isSelected: true),
-
-                          //   // itemAngsuran(
-                          //   //     _formatCurrency(state
-                          //   //         .installmentResults.monthlyInstallment),
-                          //   //     loanTermController.text,
-                          //   //     isSelected: true),
-                          //   // for (var entry in state
-                          //   //     .installmentResults.installmentByYear.entries)
-                          //   //   itemAngsuran(_formatCurrency(entry.value),
-                          //   //       entry.key.toString(),
-                          //   //       isSelected: entry.key.toString() ==
-                          //   //               loanTermController.text
-                          //   //           ? true
-                          //   //           : false),
-                          // ]
-                          )
+                              .toList())
                     ],
                   ),
                 );
@@ -327,20 +285,6 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
               return Container();
             },
           ),
-          // Center(
-          //   child: Wrap(
-          //     spacing: 10,
-          //     runSpacing: 10,
-          //     children: [
-          //       itemAngsuran('Rp 10.270.000', '14', isSelected: true),
-          //       itemAngsuran('Rp 10.270.000', '14'),
-          //       itemAngsuran('Rp 10.270.000', '14'),
-          //       itemAngsuran('Rp 10.270.000', '14'),
-          //       itemAngsuran('Rp 10.270.000', '14'),
-          //       itemAngsuran('Rp 10.270.000', '14'),
-          //     ],
-          //   ),
-          // ),
           SizedBox(height: 16),
           Text(
               '*Angka yang ditampilkan di atas adalah perkiraan, dan perhitungan aktual dapat berbeda dari yang diberikan oleh bank. Silakan hubungi kami untuk informasi lebih lanjut. ',
@@ -396,7 +340,7 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
         drawer: SideBar(),
         body: Container(
           color: bgColor1,
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: ListView(
             children: [
               Image.asset('assets/img_kpr.png'),
@@ -412,9 +356,4 @@ class _SimulasiKprPageState extends State<SimulasiKprPage> {
           ),
         ));
   }
-}
-
-String _formatCurrency(double amount) {
-  String formattedString = amount.toStringAsFixed(0);
-  return formattedString.currencyFormatRp;
 }

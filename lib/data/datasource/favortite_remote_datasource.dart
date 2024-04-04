@@ -23,7 +23,7 @@ class FavoriteRemoteDataSource {
       return Right(
           PropertyFavoriteResponseModel.fromJson(jsonDecode(response.body)));
     } else {
-      return const Left('Server Error');
+      return Left(jsonDecode(response.body)['message']);
     }
   }
 

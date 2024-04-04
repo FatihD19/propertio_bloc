@@ -11,27 +11,49 @@ part 'properti_state.dart';
 
 class PropertiBloc extends Bloc<PropertiEvent, PropertiState> {
   PropertiBloc() : super(PropertiInitial()) {
-    on<OnGetProperti>((event, emit) async {
-      emit(PropertiLoading());
-      final result = await PropertiRemoteDataSource().getProperti(
-          isRent: event.isRent,
-          query: event.query,
-          page: event.page,
-          type: event.type);
-      result.fold(
-        (l) => emit(PropertiError(l)),
-        (r) => emit(PropertiLoaded(r)),
-      );
+    on<PropertiEvent>((event, emit) async {
+      if (event is OnGetProperti) {
+        emit(PropertiLoading());
+        final result = await PropertiRemoteDataSource().getProperti(
+            isRent: event.isRent,
+            query: event.query,
+            page: event.page,
+            type: event.type);
+        result.fold(
+          (l) => emit(PropertiError(l)),
+          (r) => emit(PropertiLoaded(r)),
+        );
+      } else if (event is OnGetDetailProperti) {
+        emit(PropertiLoading());
+        final result =
+            await PropertiRemoteDataSource().getDetailProperti(event.slug);
+        result.fold(
+          (l) => emit(PropertiError(l)),
+          (r) => emit(PropertiDetailLoaded(r)),
+        );
+      }
     });
+    // on<OnGetProperti>((event, emit) async {
+    //   emit(PropertiLoading());
+    //   final result = await PropertiRemoteDataSource().getProperti(
+    //       isRent: event.isRent,
+    //       query: event.query,
+    //       page: event.page,
+    //       type: event.type);
+    //   result.fold(
+    //     (l) => emit(PropertiError(l)),
+    //     (r) => emit(PropertiLoaded(r)),
+    //   );
+    // });
 
-    on<OnGetDetailProperti>((event, emit) async {
-      emit(PropertiLoading());
-      final result =
-          await PropertiRemoteDataSource().getDetailProperti(event.slug);
-      result.fold(
-        (l) => emit(PropertiError(l)),
-        (r) => emit(PropertiDetailLoaded(r)),
-      );
-    });
+    // on<OnGetDetailProperti>((event, emit) async {
+    //   emit(PropertiLoading());
+    //   final result =
+    //       await PropertiRemoteDataSource().getDetailProperti(event.slug);
+    //   result.fold(
+    //     (l) => emit(PropertiError(l)),
+    //     (r) => emit(PropertiDetailLoaded(r)),
+    //   );
+    // });
   }
 }

@@ -128,7 +128,9 @@ class _PropertiPageState extends State<PropertiPage> {
                   return TextFailure(message: state.message);
                 }
                 if (state is PropertiLoaded) {
-                  return Column(
+                  return Wrap(
+                    spacing: 20,
+                    runSpacing: 4,
                     children:
                         state.listPropertiModel!.data!.properties!.length == 0
                             ? [Text('Tidak ada properti')]

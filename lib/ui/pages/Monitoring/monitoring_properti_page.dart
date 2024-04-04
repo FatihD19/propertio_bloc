@@ -20,8 +20,8 @@ class MonitoringPropertiPage extends StatelessWidget {
         children: [
           Text('Daftar Proyek di Indoensia',
               style: primaryTextStyle.copyWith(fontWeight: bold, fontSize: 16)),
-          SizedBox(height: 16),
-          SearchForm(),
+          // SizedBox(height: 16),
+          // SearchForm(),
           // ExampleWidget()
         ],
       );

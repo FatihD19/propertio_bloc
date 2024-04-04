@@ -153,8 +153,7 @@ class _ModalFilterState extends State<ModalFilter> {
       height: MediaQuery.of(context).size.height * 0.4,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
         children: [
           widget.isProyek == true
               ? SizedBox()
@@ -178,7 +177,8 @@ class _ModalFilterState extends State<ModalFilter> {
                     borderColor: [
                       primaryColor,
                     ],
-                    minWidth: (MediaQuery.of(context).size.width / 2) - 43,
+                    minWidth: 176.0,
+
                     cornerRadius: 20,
                     activeBgColors: [
                       [Colors.white],

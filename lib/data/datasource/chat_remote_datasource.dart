@@ -5,8 +5,13 @@ import 'package:propertio_mobile/data/model/responses/list_chat_response_model.d
 import 'package:propertio_mobile/shared/api_path.dart';
 import 'dart:convert';
 
+import 'package:propertio_mobile/shared/utils.dart';
+
 class ChatRemoteDataSource {
   Future<Either<String, ListChatResponseModel>> getListChat(String id) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(ApiPath.baseUrl + '/v1/progress/chat-list/$id');
     final token = await AuthLocalDataSource.getToken();
     final response = await http.get(url, headers: {
@@ -22,6 +27,9 @@ class ChatRemoteDataSource {
   }
 
   Future<bool> postChatUser(String id, String message) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return false;
+    }
     var url = Uri.parse(ApiPath.baseUrl + '/v1/progress/chat/$id');
     final token = await AuthLocalDataSource.getToken();
     final response = await http.post(url, headers: {

@@ -7,10 +7,14 @@ import 'package:propertio_mobile/data/model/responses/list_propertyType_Response
 import 'dart:convert';
 
 import 'package:propertio_mobile/shared/api_path.dart';
+import 'package:propertio_mobile/shared/utils.dart';
 
 class PropertiRemoteDataSource {
   Future<Either<String, ListPropertyModel>> getProperti(
       {bool? isRent, String? query, int? page, String? type}) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = isRent == true
         ? Uri.parse(ApiPath.baseUrl +
             '/v1/property?type=rent&page=${page ?? 1}&property_type=${type ?? ''}&search=${query ?? ''}')
@@ -29,6 +33,9 @@ class PropertiRemoteDataSource {
 
   Future<Either<String, DetailPropertiResponseModel>> getDetailProperti(
       String slug) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(ApiPath.baseUrl + '/v1/property/$slug');
     final token = await AuthLocalDataSource.getToken();
     final response = await http.get(url, headers: {'Authorization': token});
@@ -44,6 +51,9 @@ class PropertiRemoteDataSource {
 
   Future<Either<String, ListPropertyTypeResponseModel>>
       getTipeProperti() async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(ApiPath.baseUrl + '/v1/cms/property-type');
     final response = await http.get(url);
 

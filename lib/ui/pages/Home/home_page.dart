@@ -249,17 +249,17 @@ class _HomePageState extends State<HomePage> {
     Widget tipeApartemen() {
       return Column(
         children: [
-          Text('Eksplor berbagai tipe apartemen',
+          Text('Eksplor berbagai tipe Properti',
               style: primaryTextStyle.copyWith(fontWeight: bold, fontSize: 16)),
           SizedBox(height: 8),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                ItemTipeApartemen('Surabaya', '10'),
-                ItemTipeApartemen('Yogyakarta', '12'),
-                ItemTipeApartemen('Semarang', '15'),
-                ItemTipeApartemen('Jakarta', '20'),
+                ItemTipeApartemen('Surabaya'),
+                ItemTipeApartemen('Yogyakarta'),
+                ItemTipeApartemen('Semarang'),
+                ItemTipeApartemen('Jakarta'),
               ],
             ),
           ),

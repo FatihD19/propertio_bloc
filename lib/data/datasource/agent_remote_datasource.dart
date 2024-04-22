@@ -6,10 +6,14 @@ import 'package:propertio_mobile/data/model/responses/list_agent_response_model.
 import 'dart:convert';
 
 import 'package:propertio_mobile/shared/api_path.dart';
+import 'package:propertio_mobile/shared/utils.dart';
 
 class AgentRemoteDataSource {
   Future<Either<String, ListAgentModel>> getAgent(
       {String? search, int? page}) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(ApiPath.baseUrl +
         '/v1/agent?search=${search ?? ''}&?page=${page ?? 1}');
     final response = await http.get(url);
@@ -24,6 +28,9 @@ class AgentRemoteDataSource {
 
   Future<Either<String, DetailAgentResponseModel>> getDetailAgent(
       String id) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(ApiPath.baseUrl + '/v1/agent/$id');
     final token = await AuthLocalDataSource.getToken();
     final response = await http.get(url, headers: {

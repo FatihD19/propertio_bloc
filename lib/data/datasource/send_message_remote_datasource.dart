@@ -3,11 +3,15 @@ import 'package:propertio_mobile/data/model/request/send_message_request_model.d
 import 'dart:convert';
 
 import 'package:propertio_mobile/shared/api_path.dart';
+import 'package:propertio_mobile/shared/utils.dart';
 
 class SendMessageRemoteDataSource {
   Future<bool> sendMessage(
       {SendMessagePropertyRequestModel? property,
       SendMessageProjectRequestModel? project}) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return false;
+    }
     var url = project == null
         ? Uri.parse(ApiPath.baseUrl + '/v1/property/message')
         : Uri.parse(ApiPath.baseUrl + '/v1/project/message');

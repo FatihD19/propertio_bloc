@@ -137,7 +137,9 @@ class SmallProyekCard extends StatelessWidget {
 class SmallProyekCardUnit extends StatelessWidget {
   bool? isFavorite;
   UnitModel? unit;
-  SmallProyekCardUnit({this.unit, this.isFavorite, super.key});
+  String? projectCode;
+  SmallProyekCardUnit(
+      {this.unit, this.isFavorite, this.projectCode, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +217,16 @@ class SmallProyekCardUnit extends StatelessWidget {
               ),
               isFavorite == false
                   ? SizedBox()
-                  : Positioned(top: 10, right: 10, child: FavoriteButton()),
+                  : Positioned(
+                      top: 10,
+                      right: 10,
+                      child: IgnorePointer(
+                        ignoring: true,
+                        child: FavoriteButton(
+                          isFavorite: isFavorite,
+                          projectCode: projectCode,
+                        ),
+                      )),
               Positioned(
                 top: 10,
                 left: 10,

@@ -7,9 +7,13 @@ import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
 import 'package:propertio_mobile/data/model/request/udpate_profil_request_model.dart';
 import 'package:propertio_mobile/data/model/responses/profil_response_model.dart';
 import 'package:propertio_mobile/shared/api_path.dart';
+import 'package:propertio_mobile/shared/utils.dart';
 
 class ProfileRemoteDataSource {
   Future<Either<String, ProfilResponseModel>> getProfile() async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(ApiPath.baseUrl + '/v1/profile');
     final token = await AuthLocalDataSource.getToken();
     final response = await http.get(url, headers: {

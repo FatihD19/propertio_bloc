@@ -104,11 +104,11 @@ class _InfoPromoCarouselState extends State<InfoPromoCarousel> {
                 left: MediaQuery.of(context).size.width / 2 - 76,
                 child: GestureDetector(
                   onTap: () {
-                    // launchUrl(Uri.parse('${widget.virtualUrl}'));
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return VirtualView();
-                    }));
+                    launchUrl(Uri.parse('${widget.virtualUrl}'));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) {
+                    //   return VirtualView();
+                    // }));
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),

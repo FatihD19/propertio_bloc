@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -97,4 +98,14 @@ String formatClock(DateTime dateTime) {
 
   // Format waktu dengan zona waktu yang telah disetel
   return format.format(jakartaTime);
+}
+
+class NetworkInfoException {
+  static Future<bool> isConnected() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      return false;
+    }
+    return true;
+  }
 }

@@ -7,10 +7,14 @@ import 'package:propertio_mobile/data/model/responses/list_project_response_mode
 import 'dart:convert';
 
 import 'package:propertio_mobile/shared/api_path.dart';
+import 'package:propertio_mobile/shared/utils.dart';
 
 class ProjectRemoteDataSource {
   Future<Either<String, ListProjectModel>> getProject(
       {String? query, int? page, String? type}) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(ApiPath.baseUrl +
         '/v1/project?type=&page=&property_type=${type ?? ''}&page=${page ?? 1}&search=${query ?? ''}');
     final token = await AuthLocalDataSource.getToken();
@@ -28,6 +32,9 @@ class ProjectRemoteDataSource {
 
   Future<Either<String, DetailProjectResponseModel>> getDetailProject(
       String slug) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(ApiPath.baseUrl + '/v1/project/$slug');
     final token = await AuthLocalDataSource.getToken();
     final response = await http.get(url, headers: {'Authorization': token});
@@ -43,6 +50,9 @@ class ProjectRemoteDataSource {
 
   Future<Either<String, DetailunitResponseModel>> getDetailUnit(
       String idUnit) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(ApiPath.baseUrl + '/v1/unit/$idUnit');
     final response = await http.get(url);
 

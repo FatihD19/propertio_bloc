@@ -33,7 +33,8 @@ class DetailProyekPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget listUnit(List<UnitModel> listUnit) {
+    Widget listUnit(
+        List<UnitModel> listUnit, String projectCode, bool isFavorite) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -47,6 +48,8 @@ class DetailProyekPage extends StatelessWidget {
               children: listUnit
                   .map((unit) => SmallProyekCardUnit(
                         unit: unit,
+                        isFavorite: isFavorite,
+                        projectCode: projectCode,
                       ))
                   .toList(),
             ),
@@ -91,11 +94,13 @@ class DetailProyekPage extends StatelessWidget {
                 color: bgColor1,
                 child: ListView(children: [
                   InfoPromoCarousel(
-                    state.projectModel.data!.projectPhotos!
-                        .map((projectPhoto) => projectPhoto.filename.toString())
-                        .toList(),
-                    isVirtual: true,
-                  ),
+                      state.projectModel.data!.projectPhotos!
+                          .map((projectPhoto) =>
+                              projectPhoto.filename.toString())
+                          .toList(),
+                      isVirtual:
+                          proyek.projectVirtualTour == null ? false : true,
+                      virtualUrl: '${proyek.projectVirtualTour?.link}'),
                   // Text('${cheapestUnit.price} - ${mostExpensiveUnit.price}'),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -171,7 +176,8 @@ class DetailProyekPage extends StatelessWidget {
                             lantitude: proyek.address!.latitude.toString(),
                             longitude: proyek.address!.longitude.toString()),
                         SizedBox(height: 16),
-                        listUnit(state.projectModel.data?.units?.data ?? []),
+                        listUnit(state.projectModel.data?.units?.data ?? [],
+                            '${proyek.projectCode}', proyek.isFavorites!),
                         SizedBox(height: 16),
                         InfoMapView(
                           isDenah: true,

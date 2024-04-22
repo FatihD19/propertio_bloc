@@ -62,7 +62,9 @@ class DetailPropertiPage extends StatelessWidget {
                       detailProperti.propertyPhoto!
                           .map((propertiPhoto) => propertiPhoto.filename)
                           .toList(),
-                      isVirtual: true,
+                      isVirtual: detailProperti.propertyVirtualTour == null
+                          ? false
+                          : true,
                       virtualUrl: detailProperti.propertyVirtualTour?.link),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),

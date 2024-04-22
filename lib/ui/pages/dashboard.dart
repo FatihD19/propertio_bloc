@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:propertio_mobile/bloc/auth/auth_bloc.dart';
+import 'package:propertio_mobile/bloc/monitoring/monitoring_bloc.dart';
 import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
 
 import 'package:propertio_mobile/shared/api_path.dart';
@@ -23,6 +24,12 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  @override
+  void initState() {
+    context.read<MonitoringBloc>().add(OnGetProjectProgress());
+    super.initState();
+  }
+
   // Pages for Bottom Navigation Bar
   final List<Widget> _pages = [
     HomePage(),

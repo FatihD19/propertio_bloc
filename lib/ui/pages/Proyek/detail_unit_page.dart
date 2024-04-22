@@ -64,7 +64,9 @@ class DetailUnitPage extends StatelessWidget {
                       detailUnit.unitPhotos!
                           .map((unitPhoto) => unitPhoto.filename.toString())
                           .toList(),
-                      isVirtual: true,
+                      isVirtual:
+                          detailUnit.unitVirtualTour == null ? false : true,
+                      virtualUrl: detailUnit.unitVirtualTour?.link,
                     ),
                     Container(
                       padding:
@@ -163,21 +165,29 @@ class DetailUnitPage extends StatelessWidget {
                                   detailUnit.address!.longitude.toString()),
                           SizedBox(height: 16),
                           FacilityView(detailUnit.projectFacilities!),
-                          InfrastructureView(detailUnit.projectInfrastructure!),
+                          detailUnit.projectInfrastructure?.length == 0
+                              ? SizedBox()
+                              : InfrastructureView(
+                                  detailUnit.projectInfrastructure!),
                           // InfoMapView(isDenah: true,
                           // ),
                           // SizedBox(height: 16),
-                          CustomButton(
-                              text: '3D Model Unit',
-                              icon: Icons.view_in_ar_outlined,
-                              onPressed: () {}),
+                          detailUnit.unitModel?.link == null
+                              ? SizedBox()
+                              : CustomButton(
+                                  text: '3D Model Unit',
+                                  icon: Icons.view_in_ar_outlined,
+                                  onPressed: () {
+                                    launchUrl(Uri.parse(
+                                        '${detailUnit.unitModel?.link}'));
+                                  }),
                           SizedBox(height: 16),
                           detailUnit.unitVideo == null
-                              ? Text('Tidak tersedia video')
+                              ? SizedBox()
                               : WebviewtubeDemo(urlVideo),
                           SizedBox(height: 16),
                           detailUnit.unitDocuments!.isEmpty
-                              ? Text('Tidak tersedia brosur')
+                              ? SizedBox()
                               : CustomButton(
                                   text: 'Unduh Brosur',
                                   icon: Icons.menu_book_rounded,

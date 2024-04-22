@@ -6,9 +6,13 @@ import 'package:propertio_mobile/data/model/responses/homepage_response_Model.da
 
 import 'package:propertio_mobile/shared/api_path.dart';
 import 'package:http/http.dart' as http;
+import 'package:propertio_mobile/shared/utils.dart';
 
 class HomePageRemoteDataSource {
   Future<Either<String, HomePageModel>> getHomePage() async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(ApiPath.baseUrl + '/v1/homepage');
     final token = await AuthLocalDataSource.getToken();
     final response = await http.get(url, headers: {

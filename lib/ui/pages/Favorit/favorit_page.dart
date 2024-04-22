@@ -102,18 +102,7 @@ class _FavoritPageState extends State<FavoritPage> {
                 return Center(child: CircularProgressIndicator());
               }
               if (state is FavoriteError) {
-                return Column(
-                  children: [
-                    Text('Login / Register untuk melihat properti favorit',
-                        style: primaryTextStyle.copyWith(fontWeight: bold)),
-                    SizedBox(height: 16),
-                    CustomButton(
-                        text: 'Masuk Sekarang',
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/login');
-                        }),
-                  ],
-                );
+                return TextFailure(message: state.message);
               }
               if (state is FavoritePropertyLoaded) {
                 return state.favoriteProperty.data!.propertyFavorites!.isEmpty
@@ -167,18 +156,7 @@ class _FavoritPageState extends State<FavoritPage> {
             return Center(child: CircularProgressIndicator());
           }
           if (state is FavoriteError) {
-            return Column(
-              children: [
-                Text('Login / Register untuk melihat properti favorit',
-                    style: primaryTextStyle.copyWith(fontWeight: bold)),
-                SizedBox(height: 16),
-                CustomButton(
-                    text: 'Masuk Sekarang',
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                    }),
-              ],
-            );
+            return TextFailure(message: state.message);
           }
           if (state is FavoriteProjectLoaded) {
             return Column(

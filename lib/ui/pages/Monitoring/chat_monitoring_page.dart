@@ -49,7 +49,7 @@ class _ChatMonitoringPageState extends State<ChatMonitoringPage> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+    _timer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
       context.read<ChatBloc>().add(OnGetListChat(widget.idMonitoring));
     });
   }

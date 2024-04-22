@@ -6,10 +6,14 @@ import 'dart:convert';
 
 import 'package:propertio_mobile/data/model/responses/property_favorite_response_model.dart';
 import 'package:propertio_mobile/shared/api_path.dart';
+import 'package:propertio_mobile/shared/utils.dart';
 
 class FavoriteRemoteDataSource {
   Future<Either<String, PropertyFavoriteResponseModel>> getFavoriteProperty(
       {int? page}) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(
         ApiPath.baseUrl + '/v1/favorite?page=${page ?? 1}&type=property');
     final token = await AuthLocalDataSource.getToken();
@@ -29,6 +33,9 @@ class FavoriteRemoteDataSource {
 
   Future<Either<String, ProjectFavoriteResponseModel>> getFavoriteProject(
       {int? page}) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return const Left('Tidak Ada Koneksi Internet');
+    }
     var url = Uri.parse(
         ApiPath.baseUrl + '/v1/favorite?page=${page ?? 1}&type=project');
     final token = await AuthLocalDataSource.getToken();
@@ -47,6 +54,9 @@ class FavoriteRemoteDataSource {
   }
 
   Future<bool> postFavorite({String? propertyCode, String? projectCode}) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return false;
+    }
     var url = projectCode == null
         ? Uri.parse(ApiPath.baseUrl + '/v1/favorite/property')
         : Uri.parse(ApiPath.baseUrl + '/v1/favorite/project');
@@ -68,6 +78,9 @@ class FavoriteRemoteDataSource {
 
   Future<bool> deleteFavorite(
       {String? propertyCode, String? projectCode}) async {
+    if (await NetworkInfoException.isConnected() == false) {
+      return false;
+    }
     var url = propertyCode == null
         ? Uri.parse(ApiPath.baseUrl + '/v1/favorite/project/$projectCode')
         : Uri.parse(ApiPath.baseUrl + '/v1/favorite/property/$propertyCode');

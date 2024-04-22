@@ -49,12 +49,17 @@ class MonitoringPropertiPage extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      child: ListView(
-        children: [
-          header(),
-          SizedBox(height: 16),
-          listProgressProyek(),
-        ],
+      child: RefreshIndicator.adaptive(
+        onRefresh: () async {
+          context.read<MonitoringBloc>().add(OnGetProjectProgress());
+        },
+        child: ListView(
+          children: [
+            header(),
+            SizedBox(height: 16),
+            listProgressProyek(),
+          ],
+        ),
       ),
     );
   }

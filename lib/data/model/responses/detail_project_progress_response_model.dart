@@ -1,4 +1,4 @@
-import 'package:propertio_mobile/data/model/detail_project_progress_model.dart';
+import 'package:propertio_bloc/data/model/detail_project_progress_model.dart';
 
 class DetailProjectProgressResponseModel {
   String? status;

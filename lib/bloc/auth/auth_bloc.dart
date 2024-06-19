@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
-import 'package:propertio_mobile/data/datasource/auth_remote_datasource.dart';
+import 'package:propertio_bloc/data/datasource/auth_local_datasource.dart';
+import 'package:propertio_bloc/data/datasource/auth_remote_datasource.dart';
 
-import 'package:propertio_mobile/data/model/request/login_request_model.dart';
-import 'package:propertio_mobile/data/model/request/register_request_model.dart';
-import 'package:propertio_mobile/data/model/responses/login_response_model.dart';
+import 'package:propertio_bloc/data/model/request/login_request_model.dart';
+import 'package:propertio_bloc/data/model/request/register_request_model.dart';
+import 'package:propertio_bloc/data/model/responses/login_response_model.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -39,16 +39,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
       } catch (e) {
         emit(AuthFailed(e.toString()));
-      }
-    });
-
-    on<RegisterUser>((event, emit) async {
-      emit(AuthLoading());
-      final result = await _authRemoteDataSource.register(event.data);
-      if (result) {
-        emit(RegisterSuccess());
-      } else {
-        emit(AuthFailed('Server Error'));
       }
     });
   }

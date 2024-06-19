@@ -1,4 +1,4 @@
-import 'package:propertio_mobile/data/model/agent_model.dart';
+import 'package:propertio_bloc/data/model/agent_model.dart';
 
 class PropertyType {
   String? name;

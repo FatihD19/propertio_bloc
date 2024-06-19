@@ -1,5 +1,5 @@
-import 'package:propertio_mobile/data/model/pagination_model.dart';
-import 'package:propertio_mobile/data/model/proyek_model.dart';
+import 'package:propertio_bloc/data/model/pagination_model.dart';
+import 'package:propertio_bloc/data/model/proyek_model.dart';
 
 class ProjectFavoriteResponseModel {
   String? status;

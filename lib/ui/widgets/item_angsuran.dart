@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/container_style.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/container_style.dart';
 
 class ItemAngsuran extends StatelessWidget {
   String angsuran;

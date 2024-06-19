@@ -4,8 +4,8 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
-import 'package:propertio_mobile/ui/component/container_style.dart';
-import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/container_style.dart';
+import 'package:propertio_bloc/shared/theme.dart';
 
 class DescriptionView extends StatefulWidget {
   final String description;

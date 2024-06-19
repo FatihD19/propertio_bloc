@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/properti/properti_bloc.dart';
-import 'package:propertio_mobile/bloc/propertyType/property_type_bloc.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/bottom_modal.dart';
-import 'package:propertio_mobile/ui/component/button.dart';
-import 'package:propertio_mobile/ui/component/dropdown_type.dart';
-import 'package:propertio_mobile/ui/component/text_failure.dart';
+import 'package:propertio_bloc/bloc/properti/properti_bloc.dart';
+import 'package:propertio_bloc/bloc/propertyType/property_type_bloc.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/bottom_modal.dart';
+import 'package:propertio_bloc/ui/component/button.dart';
+import 'package:propertio_bloc/ui/component/dropdown_type.dart';
+import 'package:propertio_bloc/ui/component/text_failure.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class SearchForm extends StatefulWidget {

@@ -1,6 +1,6 @@
-import 'package:propertio_mobile/data/model/developer_model.dart';
-import 'package:propertio_mobile/data/model/properti_model.dart';
-import 'package:propertio_mobile/data/model/unit_model.dart';
+import 'package:propertio_bloc/data/model/developer_model.dart';
+import 'package:propertio_bloc/data/model/properti_model.dart';
+import 'package:propertio_bloc/data/model/unit_model.dart';
 
 class ProjectModel {
   String? projectCode;

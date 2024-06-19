@@ -2,17 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/favorite/favorite_bloc.dart';
-import 'package:propertio_mobile/data/model/proyek_model.dart';
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/ui/component/bottom_modal.dart';
-import 'package:propertio_mobile/ui/component/button.dart';
-import 'package:propertio_mobile/ui/component/container_style.dart';
-import 'package:propertio_mobile/ui/component/custom_chip.dart';
-import 'package:propertio_mobile/ui/component/favorite_button.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/text_price.dart';
-import 'package:propertio_mobile/ui/pages/Proyek/detail_proyek_page.dart';
+import 'package:propertio_bloc/bloc/favorite/favorite_bloc.dart';
+import 'package:propertio_bloc/data/model/proyek_model.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/ui/component/bottom_modal.dart';
+import 'package:propertio_bloc/ui/component/button.dart';
+import 'package:propertio_bloc/ui/component/container_style.dart';
+import 'package:propertio_bloc/ui/component/custom_chip.dart';
+import 'package:propertio_bloc/ui/component/favorite_button.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/text_price.dart';
+import 'package:propertio_bloc/ui/pages/Proyek/detail_proyek_page.dart';
 
 class ProyekCard extends StatelessWidget {
   bool? hideAgent;

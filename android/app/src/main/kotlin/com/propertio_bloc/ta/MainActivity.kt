@@ -1,4 +1,4 @@
-package com.example.propertio_mobile
+package com.propertio_bloc.ta
 
 import io.flutter.embedding.android.FlutterActivity
 

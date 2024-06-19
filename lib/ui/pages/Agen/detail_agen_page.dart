@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/agent/agent_bloc.dart';
-import 'package:propertio_mobile/data/model/properti_model.dart';
-import 'package:propertio_mobile/data/model/responses/detail_agent_response_model.dart';
-import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_bloc/bloc/agent/agent_bloc.dart';
+import 'package:propertio_bloc/data/model/properti_model.dart';
+import 'package:propertio_bloc/data/model/responses/detail_agent_response_model.dart';
+import 'package:propertio_bloc/injection.dart';
+import 'package:propertio_bloc/shared/theme.dart';
 
-import 'package:propertio_mobile/ui/component/pagination_button.dart';
-import 'package:propertio_mobile/ui/component/text_failure.dart';
-import 'package:propertio_mobile/ui/view/detail_info_agen_view.dart';
-import 'package:propertio_mobile/ui/widgets/properti_card.dart';
+import 'package:propertio_bloc/ui/component/pagination_button.dart';
+import 'package:propertio_bloc/ui/component/text_failure.dart';
+import 'package:propertio_bloc/ui/view/detail_info_agen_view.dart';
+import 'package:propertio_bloc/ui/widgets/properti_card.dart';
 
 class DetailAgenPage extends StatefulWidget {
   final String idAgent;
@@ -32,7 +33,8 @@ class _DetailAgenPageState extends State<DetailAgenPage> {
   Widget build(BuildContext context) {
     Widget listProperti() {
       return BlocProvider(
-        create: (context) => AgentBloc()..add(OnGetDetailAgent(widget.idAgent)),
+        create: (context) =>
+            locator<AgentBloc>()..add(OnGetDetailAgent(widget.idAgent)),
         child: BlocBuilder<AgentBloc, AgentState>(
           builder: (context, state) {
             if (state is AgentLoading) {

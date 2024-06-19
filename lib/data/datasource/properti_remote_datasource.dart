@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
-import 'package:propertio_mobile/data/model/responses/detail_properti_response_model.dart';
-import 'package:propertio_mobile/data/model/responses/list_properti_response_model.dart';
-import 'package:propertio_mobile/data/model/responses/list_propertyType_Response_model.dart';
+import 'package:propertio_bloc/data/datasource/auth_local_datasource.dart';
+import 'package:propertio_bloc/data/model/responses/detail_properti_response_model.dart';
+import 'package:propertio_bloc/data/model/responses/list_properti_response_model.dart';
+import 'package:propertio_bloc/data/model/responses/list_propertyType_Response_model.dart';
 import 'dart:convert';
 
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/shared/utils.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/shared/utils.dart';
 
 class PropertiRemoteDataSource {
   Future<Either<String, ListPropertyModel>> getProperti(

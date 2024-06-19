@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_bloc/shared/theme.dart';
 
 class CustomChip extends StatelessWidget {
   final String title;

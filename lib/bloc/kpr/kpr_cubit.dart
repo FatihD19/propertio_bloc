@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:propertio_mobile/data/model/request/kpr_simulation_model.dart';
+import 'package:propertio_bloc/data/model/request/kpr_simulation_model.dart';
 import 'dart:math' as math;
 
 part 'kpr_state.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:propertio_mobile/data/model/properti_model.dart';
-import 'package:propertio_mobile/shared/utils.dart';
-import 'package:propertio_mobile/ui/component/container_style.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/favorite_button.dart';
-import 'package:propertio_mobile/ui/component/text_price.dart';
+import 'package:propertio_bloc/data/model/properti_model.dart';
+import 'package:propertio_bloc/shared/utils.dart';
+import 'package:propertio_bloc/ui/component/container_style.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/favorite_button.dart';
+import 'package:propertio_bloc/ui/component/text_price.dart';
 import 'package:share_plus/share_plus.dart';
 
 class HeadlinePropertiView extends StatelessWidget {

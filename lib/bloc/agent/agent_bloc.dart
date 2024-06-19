@@ -1,16 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:propertio_mobile/data/datasource/agent_remote_datasource.dart';
+import 'package:propertio_bloc/data/datasource/agent_remote_datasource.dart';
 
-import 'package:propertio_mobile/data/model/responses/detail_agent_response_model.dart';
+import 'package:propertio_bloc/data/model/responses/detail_agent_response_model.dart';
 
-import 'package:propertio_mobile/data/model/responses/list_agent_response_model.dart';
+import 'package:propertio_bloc/data/model/responses/list_agent_response_model.dart';
 
 part 'agent_event.dart';
 part 'agent_state.dart';
 
 class AgentBloc extends Bloc<AgentEvent, AgentState> {
-  AgentBloc() : super(AgentLoading()) {
+  final AgentRemoteDataSource _agentRemoteDataSource;
+  AgentBloc(this._agentRemoteDataSource) : super(AgentLoading()) {
     on<OnGetAgent>((event, emit) async {
       emit(AgentLoading());
       final result = await AgentRemoteDataSource()

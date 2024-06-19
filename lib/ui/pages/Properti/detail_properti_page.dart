@@ -2,27 +2,27 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/properti/properti_bloc.dart';
-import 'package:propertio_mobile/data/model/properti_model.dart';
-import 'package:propertio_mobile/data/model/responses/detail_properti_response_model.dart';
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/shared/utils.dart';
-import 'package:propertio_mobile/ui/component/bottom_modal.dart';
-import 'package:propertio_mobile/ui/component/text_failure.dart';
-import 'package:propertio_mobile/ui/component/text_price.dart';
-import 'package:propertio_mobile/ui/view/alamat_info_view.dart';
-import 'package:propertio_mobile/ui/view/contact_us_detail.dart';
-import 'package:propertio_mobile/ui/view/description_info_view.dart';
-import 'package:propertio_mobile/ui/view/detail_info_view.dart';
-import 'package:propertio_mobile/ui/view/detail_overview_view.dart';
-import 'package:propertio_mobile/ui/view/facility_view.dart';
-import 'package:propertio_mobile/ui/view/headline_properti_view.dart';
-import 'package:propertio_mobile/ui/view/info_map_view.dart';
-import 'package:propertio_mobile/ui/view/info_promo_view.dart';
-import 'package:propertio_mobile/ui/view/listile_agen.dart';
-import 'package:propertio_mobile/ui/view/send_message_view.dart';
-import 'package:propertio_mobile/ui/view/video_view.dart';
+import 'package:propertio_bloc/bloc/properti/properti_bloc.dart';
+import 'package:propertio_bloc/data/model/properti_model.dart';
+import 'package:propertio_bloc/data/model/responses/detail_properti_response_model.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/shared/utils.dart';
+import 'package:propertio_bloc/ui/component/bottom_modal.dart';
+import 'package:propertio_bloc/ui/component/text_failure.dart';
+import 'package:propertio_bloc/ui/component/text_price.dart';
+import 'package:propertio_bloc/ui/view/alamat_info_view.dart';
+import 'package:propertio_bloc/ui/view/contact_us_detail.dart';
+import 'package:propertio_bloc/ui/view/description_info_view.dart';
+import 'package:propertio_bloc/ui/view/detail_info_view.dart';
+import 'package:propertio_bloc/ui/view/detail_overview_view.dart';
+import 'package:propertio_bloc/ui/view/facility_view.dart';
+import 'package:propertio_bloc/ui/view/headline_properti_view.dart';
+import 'package:propertio_bloc/ui/view/info_map_view.dart';
+import 'package:propertio_bloc/ui/view/info_promo_view.dart';
+import 'package:propertio_bloc/ui/view/listile_agen.dart';
+import 'package:propertio_bloc/ui/view/send_message_view.dart';
+import 'package:propertio_bloc/ui/view/video_view.dart';
 
 class DetailPropertiPage extends StatelessWidget {
   final String slug;

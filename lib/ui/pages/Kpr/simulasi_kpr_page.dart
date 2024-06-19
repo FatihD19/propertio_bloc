@@ -4,16 +4,16 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/kpr/kpr_cubit.dart';
-import 'package:propertio_mobile/data/model/request/kpr_simulation_model.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/shared/utils.dart';
-import 'package:propertio_mobile/ui/component/button.dart';
-import 'package:propertio_mobile/ui/component/container_style.dart';
-import 'package:propertio_mobile/ui/component/sidebar.dart';
-import 'package:propertio_mobile/ui/component/textfieldForm.dart';
-import 'package:propertio_mobile/ui/view/detail_info_view.dart';
-import 'package:propertio_mobile/ui/widgets/item_angsuran.dart';
+import 'package:propertio_bloc/bloc/kpr/kpr_cubit.dart';
+import 'package:propertio_bloc/data/model/request/kpr_simulation_model.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/shared/utils.dart';
+import 'package:propertio_bloc/ui/component/button.dart';
+
+import 'package:propertio_bloc/ui/component/sidebar.dart';
+import 'package:propertio_bloc/ui/component/textfieldForm.dart';
+
+import 'package:propertio_bloc/ui/widgets/item_angsuran.dart';
 
 class SimulasiKprPage extends StatefulWidget {
   const SimulasiKprPage({super.key});

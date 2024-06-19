@@ -1,12 +1,10 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/address/cities/cities_cubit.dart';
-import 'package:propertio_mobile/bloc/address/province/province_cubit.dart';
-import 'package:propertio_mobile/bloc/propertyType/property_type_bloc.dart';
-import 'package:propertio_mobile/data/model/responses/address_response_model.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/text_failure.dart';
+
+import 'package:propertio_bloc/bloc/propertyType/property_type_bloc.dart';
+
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/text_failure.dart';
 
 class DropdownType extends StatelessWidget {
   String? selectedItem;
@@ -181,120 +179,5 @@ class DropdownCustomized extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class AddressForm extends StatefulWidget {
-  String _selectedProvince;
-  String _selectedCity;
-  void Function(String?)? onChangedProvince;
-  void Function(String?)? onChangedCity;
-  AddressForm(this._selectedProvince, this._selectedCity,
-      {this.onChangedProvince, this.onChangedCity, super.key});
-
-  @override
-  State<AddressForm> createState() => _AddressFormState();
-}
-
-class _AddressFormState extends State<AddressForm> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      BlocBuilder<ProvinceCubit, ProvinceState>(
-        builder: (context, state) {
-          if (state is ProvinceLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (state is ProvinceError) {
-            return TextFailure(message: state.message);
-          }
-          if (state is ProvinceLoaded) {
-            List<ProvinceResponseModel> provinces = state.provinces;
-
-            return CustomDropdown<String>(
-              value: widget._selectedProvince,
-              items: provinces.map((e) => '${e.name}').toList(),
-              label: 'Provinsi',
-              onChanged: (value) {
-                widget.onChangedProvince!(value);
-                setState(() {
-                  var idProvince = provinces
-                      .firstWhere((element) => element.name == value)
-                      .id;
-                  widget._selectedProvince = value!;
-                  context.read<CitiesCubit>().disposeCity();
-                  widget._selectedCity = 'Pilih Kota';
-                  print('idProvince: $idProvince');
-                  idProvince == '0'
-                      ? null
-                      : context.read<CitiesCubit>().getCities('$idProvince');
-                });
-              },
-              itemBuilder: (item) {
-                return DropdownMenuItem(
-                  value: item,
-                  child: Text('${item}'),
-                );
-              },
-            );
-          }
-          return Container();
-        },
-      ),
-      BlocBuilder<CitiesCubit, CitiesState>(
-        builder: (context, state) {
-          if (state is CitiesLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (state is CitiesError) {
-            return TextFailure(message: state.message);
-          }
-          if (state is CitiesLoaded) {
-            List<CitiesResponseModel> cities = state.cities;
-
-            return CustomDropdown<String>(
-              value: widget._selectedCity,
-              items: cities.map((e) => '${e.name}').toList(),
-              label: 'Kota',
-              onChanged: (value) {
-                setState(() {
-                  widget.onChangedCity!(value);
-                  widget._selectedCity = value!;
-                });
-              },
-              itemBuilder: (item) {
-                return DropdownMenuItem(
-                  value: item,
-                  child: Text('${item}'),
-                );
-              },
-            );
-          }
-          return IgnorePointer(
-            ignoring: true,
-            child: CustomDropdown<String>(
-              value: widget._selectedCity,
-              items: [widget._selectedCity],
-              label: 'Kota',
-              onChanged: (value) {
-                setState(() {
-                  widget._selectedCity = value!;
-                });
-              },
-              itemBuilder: (item) {
-                return DropdownMenuItem(
-                  value: item,
-                  child: Text('${item}'),
-                );
-              },
-            ),
-          );
-        },
-      )
-    ]);
   }
 }

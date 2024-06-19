@@ -2,34 +2,30 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:propertio_mobile/bloc/address/cities/cities_cubit.dart';
-import 'package:propertio_mobile/bloc/address/province/province_cubit.dart';
 
-import 'package:propertio_mobile/bloc/agent/agent_bloc.dart';
-import 'package:propertio_mobile/bloc/auth/auth_bloc.dart';
+import 'package:propertio_bloc/bloc/agent/agent_bloc.dart';
+import 'package:propertio_bloc/bloc/auth/auth_bloc.dart';
 
-import 'package:propertio_mobile/bloc/chat/chat_bloc.dart';
+import 'package:propertio_bloc/bloc/developer/developer_bloc.dart';
+import 'package:propertio_bloc/bloc/favorite/favorite_bloc.dart';
+import 'package:propertio_bloc/bloc/homePage/home_page_bloc.dart';
+import 'package:propertio_bloc/bloc/kpr/kpr_cubit.dart';
 
-import 'package:propertio_mobile/bloc/developer/developer_bloc.dart';
-import 'package:propertio_mobile/bloc/favorite/favorite_bloc.dart';
-import 'package:propertio_mobile/bloc/homePage/home_page_bloc.dart';
-import 'package:propertio_mobile/bloc/kpr/kpr_cubit.dart';
-import 'package:propertio_mobile/bloc/monitoring/monitoring_bloc.dart';
-import 'package:propertio_mobile/bloc/profile/profile_bloc.dart';
-import 'package:propertio_mobile/bloc/profile/reset_password/reset_password_cubit.dart';
-import 'package:propertio_mobile/bloc/project/project_bloc.dart';
-import 'package:propertio_mobile/bloc/properti/properti_bloc.dart';
-import 'package:propertio_mobile/bloc/propertyType/property_type_bloc.dart';
-import 'package:propertio_mobile/bloc/sendMessage/send_message_bloc.dart';
-import 'package:propertio_mobile/bloc/unit/unit_bloc.dart';
+import 'package:propertio_bloc/bloc/profile/profile_bloc.dart';
 
-import 'package:propertio_mobile/injection.dart';
+import 'package:propertio_bloc/bloc/project/project_bloc.dart';
+import 'package:propertio_bloc/bloc/properti/properti_bloc.dart';
+import 'package:propertio_bloc/bloc/propertyType/property_type_bloc.dart';
+import 'package:propertio_bloc/bloc/sendMessage/send_message_bloc.dart';
+import 'package:propertio_bloc/bloc/unit/unit_bloc.dart';
 
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/pages/Auth/login_page.dart';
-import 'package:propertio_mobile/ui/pages/Auth/register_page.dart';
-import 'package:propertio_mobile/ui/pages/dashboard.dart';
-import 'package:propertio_mobile/ui/pages/splash_page.dart';
+import 'package:propertio_bloc/injection.dart';
+
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/pages/Auth/login_page.dart';
+
+import 'package:propertio_bloc/ui/pages/dashboard.dart';
+import 'package:propertio_bloc/ui/pages/splash_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
@@ -52,16 +48,16 @@ class MyApp extends StatelessWidget {
           create: (context) => locator<HomePageBloc>()..add(OnGetHomePage()),
         ),
         BlocProvider(
-          create: (context) => AgentBloc()..add(OnGetAgent()),
+          create: (context) => locator<AgentBloc>()..add(OnGetAgent()),
         ),
         BlocProvider(
-          create: (context) => ProjectBloc()..add(OnGetProject()),
+          create: (context) => locator<ProjectBloc>()..add(OnGetProject()),
         ),
         BlocProvider(
           create: (context) => PropertiBloc(),
         ),
         BlocProvider(
-          create: (context) => UnitBloc(),
+          create: (context) => locator<UnitBloc>(),
         ),
         BlocProvider(
           create: (context) => DeveloperBloc(),
@@ -70,26 +66,14 @@ class MyApp extends StatelessWidget {
           create: (context) => locator<FavoriteBloc>(),
         ),
         BlocProvider(
-          create: (context) => PropertyTypeBloc()..add(OnGetPropertyType()),
+          create: (context) =>
+              locator<PropertyTypeBloc>()..add(OnGetPropertyType()),
         ),
         BlocProvider(
-          create: (context) => ProfileBloc()..add(OnGetProfile()),
-        ),
-        BlocProvider(
-          create: (context) => locator<ProvinceCubit>()..getProvinces(),
-        ),
-        BlocProvider(
-          create: (context) => locator<CitiesCubit>(),
+          create: (context) => locator<ProfileBloc>()..add(OnGetProfile()),
         ),
         BlocProvider(create: (context) => locator<SendMessageBloc>()),
         BlocProvider(create: (context) => KprCubit()),
-        BlocProvider(
-            create: (context) =>
-                locator<MonitoringBloc>()..add(OnGetProjectProgress())),
-        BlocProvider(create: (context) => locator<ChatBloc>()),
-        BlocProvider(create: (context) => locator<ResetPasswordCubit>()),
-        // BlocProvider(create: (context) => AddressBloc()..add(OnGetProvince())),
-        // BlocProvider(create: (context) => locator<AddressCubit>()),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -105,7 +89,6 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashPage(),
           '/login': (context) => LoginPage(),
           '/dashboard': (context) => Dashboard(),
-          '/register': (context) => RegisterPage(),
         },
         // title: 'Flutter Demo',
         // theme: ThemeData(

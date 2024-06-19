@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/project/project_bloc.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/pagination_button.dart';
-import 'package:propertio_mobile/ui/component/search_form.dart';
-import 'package:propertio_mobile/ui/component/sidebar.dart';
-import 'package:propertio_mobile/ui/component/text_failure.dart';
+import 'package:propertio_bloc/bloc/project/project_bloc.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/pagination_button.dart';
+import 'package:propertio_bloc/ui/component/search_form.dart';
+import 'package:propertio_bloc/ui/component/sidebar.dart';
+import 'package:propertio_bloc/ui/component/text_failure.dart';
 
-import 'package:propertio_mobile/ui/widgets/proyek_card.dart';
-import 'package:propertio_mobile/ui/widgets/small_proyek_card.dart';
+import 'package:propertio_bloc/ui/widgets/proyek_card.dart';
+import 'package:propertio_bloc/ui/widgets/small_proyek_card.dart';
 
 class ProyekPage extends StatefulWidget {
   const ProyekPage({super.key});

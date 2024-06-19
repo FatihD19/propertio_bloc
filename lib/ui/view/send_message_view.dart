@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/sendMessage/send_message_bloc.dart';
-import 'package:propertio_mobile/data/model/agent_model.dart';
-import 'package:propertio_mobile/data/model/developer_model.dart';
-import 'package:propertio_mobile/data/model/request/send_message_request_model.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/bottom_modal.dart';
-import 'package:propertio_mobile/ui/component/button.dart';
-import 'package:propertio_mobile/ui/component/textfieldForm.dart';
-import 'package:propertio_mobile/ui/view/listile_agen.dart';
+import 'package:propertio_bloc/bloc/sendMessage/send_message_bloc.dart';
+import 'package:propertio_bloc/data/model/agent_model.dart';
+import 'package:propertio_bloc/data/model/developer_model.dart';
+import 'package:propertio_bloc/data/model/request/send_message_request_model.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/bottom_modal.dart';
+import 'package:propertio_bloc/ui/component/button.dart';
+import 'package:propertio_bloc/ui/component/textfieldForm.dart';
+import 'package:propertio_bloc/ui/view/listile_agen.dart';
 
 class ModalInformasi extends StatefulWidget {
   AgentModel? agent;

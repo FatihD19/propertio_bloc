@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:propertio_mobile/data/model/responses/address_response_model.dart';
-import 'package:propertio_mobile/shared/api_path.dart';
+import 'package:propertio_bloc/data/model/responses/address_response_model.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
 
 class AddressRemoteDataSource {
   Future<Either<String, List<ProvinceResponseModel>>> getProvince() async {

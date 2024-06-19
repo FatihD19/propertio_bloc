@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/homePage/home_page_bloc.dart';
-import 'package:propertio_mobile/bloc/properti/properti_bloc.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/search_form.dart';
-import 'package:propertio_mobile/ui/component/text_failure.dart';
-import 'package:propertio_mobile/ui/pages/Properti/properti_page.dart';
-import 'package:propertio_mobile/ui/pages/Proyek/proyek_page.dart';
-import 'package:propertio_mobile/ui/view/info_promo_view.dart';
-import 'package:propertio_mobile/ui/widgets/agent_card.dart';
-import 'package:propertio_mobile/ui/widgets/item_tipe_apartemen.dart';
-import 'package:propertio_mobile/ui/widgets/properti_card.dart';
-import 'package:propertio_mobile/ui/widgets/proyek_card.dart';
-import 'package:propertio_mobile/ui/widgets/review_card.dart';
-import 'package:propertio_mobile/ui/widgets/small_proyek_card.dart';
+import 'package:propertio_bloc/bloc/homePage/home_page_bloc.dart';
+import 'package:propertio_bloc/bloc/properti/properti_bloc.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/search_form.dart';
+import 'package:propertio_bloc/ui/component/text_failure.dart';
+import 'package:propertio_bloc/ui/pages/Properti/properti_page.dart';
+import 'package:propertio_bloc/ui/pages/Proyek/proyek_page.dart';
+import 'package:propertio_bloc/ui/view/info_promo_view.dart';
+import 'package:propertio_bloc/ui/widgets/agent_card.dart';
+import 'package:propertio_bloc/ui/widgets/item_tipe_apartemen.dart';
+import 'package:propertio_bloc/ui/widgets/properti_card.dart';
+import 'package:propertio_bloc/ui/widgets/proyek_card.dart';
+import 'package:propertio_bloc/ui/widgets/review_card.dart';
+import 'package:propertio_bloc/ui/widgets/small_proyek_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -256,10 +256,14 @@ class _HomePageState extends State<HomePage> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                ItemTipeApartemen('Surabaya'),
-                ItemTipeApartemen('Yogyakarta'),
-                ItemTipeApartemen('Semarang'),
-                ItemTipeApartemen('Jakarta'),
+                ItemTipeApartemen('Surabaya',
+                    img: 'assets/img_tp_apart_surabaya.png'),
+                ItemTipeApartemen('Yogyakarta',
+                    img: 'assets/img_tp_apart_yogya.png'),
+                ItemTipeApartemen('Semarang',
+                    img: 'assets/img_tp_apart_semarang.png'),
+                ItemTipeApartemen('Jakarta',
+                    img: 'assets/img_tp_apart_jakarta.png'),
               ],
             ),
           ),

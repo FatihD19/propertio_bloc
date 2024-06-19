@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_bloc/shared/theme.dart';
 
 class NavigationButton extends StatefulWidget {
   final int lastPage;

@@ -42,21 +42,3 @@ class UpdateProfilRequestModel {
     return data;
   }
 }
-
-class ResetPasswordRequestModel {
-  String? oldPassword;
-  String? passwordConfirmation;
-  String? password;
-
-  ResetPasswordRequestModel({
-    this.oldPassword,
-    this.passwordConfirmation,
-    this.password,
-  });
-
-  Map<String, dynamic> toJson() => {
-        "old_password": oldPassword,
-        "password_confirmation": passwordConfirmation,
-        "password": password,
-      };
-}

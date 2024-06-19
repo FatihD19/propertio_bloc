@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:propertio_mobile/data/model/responses/detail_project_response_model.dart';
-import 'package:propertio_mobile/data/model/responses/detail_properti_response_model.dart';
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_bloc/data/model/responses/detail_project_response_model.dart';
+import 'package:propertio_bloc/data/model/responses/detail_properti_response_model.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/shared/theme.dart';
 
 class FacilityView extends StatelessWidget {
   final List<ProjectFacility> facility;

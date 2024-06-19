@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:propertio_mobile/data/model/agent_model.dart';
-import 'package:propertio_mobile/data/model/developer_model.dart';
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/bottom_modal.dart';
-import 'package:propertio_mobile/ui/component/container_style.dart';
-import 'package:propertio_mobile/ui/pages/Agen/detail_agen_page.dart';
-import 'package:propertio_mobile/ui/pages/Proyek/developer_page.dart';
-import 'package:propertio_mobile/ui/view/send_message_view.dart';
+import 'package:propertio_bloc/data/model/agent_model.dart';
+import 'package:propertio_bloc/data/model/developer_model.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/bottom_modal.dart';
+import 'package:propertio_bloc/ui/component/container_style.dart';
+import 'package:propertio_bloc/ui/pages/Agen/detail_agen_page.dart';
+import 'package:propertio_bloc/ui/pages/Proyek/developer_page.dart';
+import 'package:propertio_bloc/ui/view/send_message_view.dart';
 
 class ListileDeveloper extends StatelessWidget {
   DeveloperModel? developer;

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:propertio_mobile/data/model/proyek_model.dart';
-import 'package:propertio_mobile/data/model/unit_model.dart';
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/ui/component/container_style.dart';
-import 'package:propertio_mobile/ui/component/custom_chip.dart';
-import 'package:propertio_mobile/ui/component/favorite_button.dart';
+import 'package:propertio_bloc/data/model/proyek_model.dart';
+import 'package:propertio_bloc/data/model/unit_model.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/ui/component/container_style.dart';
+import 'package:propertio_bloc/ui/component/custom_chip.dart';
+import 'package:propertio_bloc/ui/component/favorite_button.dart';
 
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/text_price.dart';
-import 'package:propertio_mobile/ui/pages/Proyek/detail_proyek_page.dart';
-import 'package:propertio_mobile/ui/pages/Proyek/detail_unit_page.dart';
-import 'package:propertio_mobile/ui/widgets/properti_card.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/text_price.dart';
+import 'package:propertio_bloc/ui/pages/Proyek/detail_proyek_page.dart';
+import 'package:propertio_bloc/ui/pages/Proyek/detail_unit_page.dart';
+import 'package:propertio_bloc/ui/widgets/properti_card.dart';
 
 class SmallProyekCard extends StatelessWidget {
   bool? isFavorite;

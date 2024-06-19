@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/shared/utils.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/shared/utils.dart';
 
 class TextPrice extends StatelessWidget {
   String price;

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:propertio_mobile/data/datasource/developer_remote_datasource.dart';
-import 'package:propertio_mobile/data/model/responses/detail_developer_response_model.dart';
+import 'package:propertio_bloc/data/datasource/developer_remote_datasource.dart';
+import 'package:propertio_bloc/data/model/responses/detail_developer_response_model.dart';
 
 part 'developer_event.dart';
 part 'developer_state.dart';

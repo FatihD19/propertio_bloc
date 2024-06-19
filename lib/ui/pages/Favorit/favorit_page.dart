@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/favorite/favorite_bloc.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/button.dart';
-import 'package:propertio_mobile/ui/component/pagination_button.dart';
-import 'package:propertio_mobile/ui/component/search_form.dart';
-import 'package:propertio_mobile/ui/component/text_failure.dart';
-import 'package:propertio_mobile/ui/widgets/properti_card.dart';
-import 'package:propertio_mobile/ui/widgets/proyek_card.dart';
+import 'package:propertio_bloc/bloc/favorite/favorite_bloc.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/button.dart';
+import 'package:propertio_bloc/ui/component/pagination_button.dart';
+import 'package:propertio_bloc/ui/component/search_form.dart';
+import 'package:propertio_bloc/ui/component/text_failure.dart';
+import 'package:propertio_bloc/ui/widgets/properti_card.dart';
+import 'package:propertio_bloc/ui/widgets/proyek_card.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class FavoritPage extends StatefulWidget {

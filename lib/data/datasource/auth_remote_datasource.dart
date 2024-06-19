@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
+import 'package:propertio_bloc/data/datasource/auth_local_datasource.dart';
 
-import 'package:propertio_mobile/data/model/request/login_request_model.dart';
-import 'package:propertio_mobile/data/model/request/register_request_model.dart';
-import 'package:propertio_mobile/data/model/responses/login_response_model.dart';
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/shared/utils.dart';
+import 'package:propertio_bloc/data/model/request/login_request_model.dart';
+import 'package:propertio_bloc/data/model/request/register_request_model.dart';
+import 'package:propertio_bloc/data/model/responses/login_response_model.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/shared/utils.dart';
 
 class AuthRemoteDataSource {
   Future<Either<String, LoginResponseModel>> login(

@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:propertio_mobile/data/model/request/login_request_model.dart';
-import 'package:propertio_mobile/data/model/responses/login_response_model.dart';
+import 'package:propertio_bloc/data/model/request/login_request_model.dart';
+import 'package:propertio_bloc/data/model/responses/login_response_model.dart';
 
 class AuthLocalDataSource {
   Future<void> storeCredentialToLocal(UserModel user, String token) async {

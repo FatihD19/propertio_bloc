@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_bloc/shared/theme.dart';
 
 class TextFailure extends StatelessWidget {
   const TextFailure({super.key, required this.message});

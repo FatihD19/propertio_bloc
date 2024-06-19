@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/auth/auth_bloc.dart';
+import 'package:propertio_bloc/bloc/auth/auth_bloc.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});

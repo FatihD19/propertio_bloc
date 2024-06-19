@@ -1,26 +1,30 @@
 import 'package:get_it/get_it.dart';
-import 'package:propertio_mobile/bloc/address/cities/cities_cubit.dart';
-import 'package:propertio_mobile/bloc/address/province/province_cubit.dart';
 
-import 'package:propertio_mobile/bloc/auth/auth_bloc.dart';
+import 'package:propertio_bloc/bloc/agent/agent_bloc.dart';
 
-import 'package:propertio_mobile/bloc/chat/chat_bloc.dart';
+import 'package:propertio_bloc/bloc/auth/auth_bloc.dart';
 
-import 'package:propertio_mobile/bloc/favorite/favorite_bloc.dart';
-import 'package:propertio_mobile/bloc/homePage/home_page_bloc.dart';
-import 'package:propertio_mobile/bloc/monitoring/monitoring_bloc.dart';
-import 'package:propertio_mobile/bloc/profile/reset_password/reset_password_cubit.dart';
+import 'package:propertio_bloc/bloc/favorite/favorite_bloc.dart';
+import 'package:propertio_bloc/bloc/homePage/home_page_bloc.dart';
 
-import 'package:propertio_mobile/bloc/sendMessage/send_message_bloc.dart';
-import 'package:propertio_mobile/data/datasource/address_remote_datasource.dart';
-import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
-import 'package:propertio_mobile/data/datasource/chat_remote_datasource.dart';
-import 'package:propertio_mobile/data/datasource/favortite_remote_datasource.dart';
-import 'package:propertio_mobile/data/datasource/homepage_remote_datasource.dart';
-import 'package:propertio_mobile/data/datasource/auth_remote_datasource.dart';
-import 'package:propertio_mobile/data/datasource/monitoring_remote_datasource.dart';
-import 'package:propertio_mobile/data/datasource/profile_remote_datasource.dart';
-import 'package:propertio_mobile/data/datasource/send_message_remote_datasource.dart';
+import 'package:propertio_bloc/bloc/profile/profile_bloc.dart';
+
+import 'package:propertio_bloc/bloc/project/project_bloc.dart';
+import 'package:propertio_bloc/bloc/propertyType/property_type_bloc.dart';
+
+import 'package:propertio_bloc/bloc/sendMessage/send_message_bloc.dart';
+import 'package:propertio_bloc/bloc/unit/unit_bloc.dart';
+import 'package:propertio_bloc/data/datasource/address_remote_datasource.dart';
+import 'package:propertio_bloc/data/datasource/agent_remote_datasource.dart';
+import 'package:propertio_bloc/data/datasource/auth_local_datasource.dart';
+
+import 'package:propertio_bloc/data/datasource/favortite_remote_datasource.dart';
+import 'package:propertio_bloc/data/datasource/homepage_remote_datasource.dart';
+import 'package:propertio_bloc/data/datasource/auth_remote_datasource.dart';
+import 'package:propertio_bloc/data/datasource/profile_remote_datasource.dart';
+import 'package:propertio_bloc/data/datasource/project_remote_datasource.dart';
+import 'package:propertio_bloc/data/datasource/properti_remote_datasource.dart';
+import 'package:propertio_bloc/data/datasource/send_message_remote_datasource.dart';
 
 final locator = GetIt.instance;
 
@@ -29,13 +33,13 @@ Future<void> initLocator() async {
 
   locator.registerFactory(() => AuthBloc(locator(), locator()));
 
-  locator.registerFactory(() => ProvinceCubit(locator()));
-
-  locator.registerFactory(() => CitiesCubit(locator()));
   locator.registerFactory(() => SendMessageBloc(locator()));
-  locator.registerFactory(() => MonitoringBloc(locator()));
-  locator.registerFactory(() => ChatBloc(locator()));
-  locator.registerFactory(() => ResetPasswordCubit(locator()));
+
+  locator.registerFactory(() => AgentBloc(locator()));
+  locator.registerFactory(() => ProjectBloc(locator()));
+  locator.registerFactory(() => UnitBloc(locator()));
+  locator.registerFactory(() => PropertyTypeBloc(locator()));
+  locator.registerFactory(() => ProfileBloc(locator()));
   // locator.registerFactory(() => AddressCubit(locator()));
 
   locator.registerFactory(() => FavoriteBloc(locator()));
@@ -52,10 +56,13 @@ Future<void> initLocator() async {
       () => FavoriteRemoteDataSource());
   locator.registerLazySingleton<SendMessageRemoteDataSource>(
       () => SendMessageRemoteDataSource());
-  locator.registerLazySingleton<MonitoringRemoteDataSource>(
-      () => MonitoringRemoteDataSource());
-  locator.registerLazySingleton<ChatRemoteDataSource>(
-      () => ChatRemoteDataSource());
+
   locator.registerLazySingleton<ProfileRemoteDataSource>(
       () => ProfileRemoteDataSource());
+  locator.registerLazySingleton<PropertiRemoteDataSource>(
+      () => PropertiRemoteDataSource());
+  locator.registerLazySingleton<AgentRemoteDataSource>(
+      () => AgentRemoteDataSource());
+  locator.registerLazySingleton<ProjectRemoteDataSource>(
+      () => ProjectRemoteDataSource());
 }

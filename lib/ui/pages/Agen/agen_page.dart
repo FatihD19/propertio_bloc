@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/agent/agent_bloc.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/pagination_button.dart';
-import 'package:propertio_mobile/ui/component/search_form.dart';
-import 'package:propertio_mobile/ui/component/sidebar.dart';
-import 'package:propertio_mobile/ui/component/text_failure.dart';
-import 'package:propertio_mobile/ui/widgets/agent_card.dart';
+import 'package:propertio_bloc/bloc/agent/agent_bloc.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/pagination_button.dart';
+import 'package:propertio_bloc/ui/component/search_form.dart';
+import 'package:propertio_bloc/ui/component/sidebar.dart';
+import 'package:propertio_bloc/ui/component/text_failure.dart';
+import 'package:propertio_bloc/ui/widgets/agent_card.dart';
 
 class AgentPage extends StatefulWidget {
   bool? forSidebar;

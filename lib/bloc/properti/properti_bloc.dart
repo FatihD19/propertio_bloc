@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:propertio_mobile/data/datasource/properti_remote_datasource.dart';
-import 'package:propertio_mobile/data/model/responses/detail_properti_response_model.dart';
+import 'package:propertio_bloc/data/datasource/properti_remote_datasource.dart';
+import 'package:propertio_bloc/data/model/responses/detail_properti_response_model.dart';
 
-import 'package:propertio_mobile/data/model/responses/list_properti_response_model.dart';
+import 'package:propertio_bloc/data/model/responses/list_properti_response_model.dart';
 
 part 'properti_event.dart';
 part 'properti_state.dart';

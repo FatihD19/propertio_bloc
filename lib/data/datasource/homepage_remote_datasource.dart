@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
-import 'package:propertio_mobile/data/model/responses/homepage_response_Model.dart';
+import 'package:propertio_bloc/data/datasource/auth_local_datasource.dart';
+import 'package:propertio_bloc/data/model/responses/homepage_response_Model.dart';
 
-import 'package:propertio_mobile/shared/api_path.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
 import 'package:http/http.dart' as http;
-import 'package:propertio_mobile/shared/utils.dart';
+import 'package:propertio_bloc/shared/utils.dart';
 
 class HomePageRemoteDataSource {
   Future<Either<String, HomePageModel>> getHomePage() async {

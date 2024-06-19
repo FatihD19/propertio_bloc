@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
-import 'package:propertio_mobile/data/model/responses/detail_agent_response_model.dart';
-import 'package:propertio_mobile/data/model/responses/list_agent_response_model.dart';
+import 'package:propertio_bloc/data/datasource/auth_local_datasource.dart';
+import 'package:propertio_bloc/data/model/responses/detail_agent_response_model.dart';
+import 'package:propertio_bloc/data/model/responses/list_agent_response_model.dart';
 import 'dart:convert';
 
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/shared/utils.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/shared/utils.dart';
 
 class AgentRemoteDataSource {
   Future<Either<String, ListAgentModel>> getAgent(
@@ -14,8 +14,8 @@ class AgentRemoteDataSource {
     if (await NetworkInfoException.isConnected() == false) {
       return const Left('Tidak Ada Koneksi Internet');
     }
-    var url = Uri.parse(ApiPath.baseUrl +
-        '/v1/agent?search=${search ?? ''}&?page=${page ?? 1}');
+    var url = Uri.parse(
+        ApiPath.baseUrl + '/v1/agent?search=${search ?? ''}&page=${page ?? 1}');
     final response = await http.get(url);
 
     print(response.body);

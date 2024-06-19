@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/auth/auth_bloc.dart';
-import 'package:propertio_mobile/bloc/profile/profile_bloc.dart';
-import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
+import 'package:propertio_bloc/bloc/auth/auth_bloc.dart';
+import 'package:propertio_bloc/bloc/profile/profile_bloc.dart';
+import 'package:propertio_bloc/data/datasource/auth_local_datasource.dart';
 
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/button.dart';
-import 'package:propertio_mobile/ui/pages/Agen/agen_page.dart';
-import 'package:propertio_mobile/ui/pages/Kpr/simulasi_kpr_page.dart';
-import 'package:propertio_mobile/ui/pages/Properti/properti_page.dart';
-import 'package:propertio_mobile/ui/pages/Proyek/proyek_page.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/button.dart';
+import 'package:propertio_bloc/ui/pages/Agen/agen_page.dart';
+import 'package:propertio_bloc/ui/pages/Kpr/simulasi_kpr_page.dart';
+import 'package:propertio_bloc/ui/pages/Properti/properti_page.dart';
+import 'package:propertio_bloc/ui/pages/Proyek/proyek_page.dart';
 
 class SideBar extends StatelessWidget {
   bool? forDashboard;

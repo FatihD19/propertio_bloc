@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/auth/auth_bloc.dart';
-import 'package:propertio_mobile/bloc/monitoring/monitoring_bloc.dart';
-import 'package:propertio_mobile/bloc/profile/profile_bloc.dart';
-import 'package:propertio_mobile/data/model/request/login_request_model.dart';
-import 'package:propertio_mobile/shared/theme.dart';
-import 'package:propertio_mobile/ui/component/bottom_modal.dart';
-import 'package:propertio_mobile/ui/component/button.dart';
-import 'package:propertio_mobile/ui/component/textfieldForm.dart';
+import 'package:propertio_bloc/bloc/auth/auth_bloc.dart';
+
+import 'package:propertio_bloc/bloc/profile/profile_bloc.dart';
+import 'package:propertio_bloc/data/model/request/login_request_model.dart';
+import 'package:propertio_bloc/shared/theme.dart';
+import 'package:propertio_bloc/ui/component/bottom_modal.dart';
+import 'package:propertio_bloc/ui/component/button.dart';
+import 'package:propertio_bloc/ui/component/textfieldForm.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -104,18 +104,7 @@ class _LoginPageState extends State<LoginPage> {
     Widget actionBtn() {
       return Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Tidak dapat mengingat kata sandi anda?',
-                  style: primaryTextStyle.copyWith(fontSize: 12)),
-              TextButton(
-                onPressed: () {},
-                child: Text('Klik disini',
-                    style: thirdTextStyle.copyWith(fontSize: 12)),
-              )
-            ],
-          ),
+          SizedBox(height: 16),
           BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is AuthFailed) {
@@ -149,20 +138,6 @@ class _LoginPageState extends State<LoginPage> {
               },
               child:
                   Text('Lewati', style: thirdTextStyle.copyWith(fontSize: 12))),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Belum memiliki akun?',
-                  style: primaryTextStyle.copyWith(fontSize: 12)),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/register');
-                },
-                child: Text('Klik disini',
-                    style: thirdTextStyle.copyWith(fontSize: 12)),
-              )
-            ],
-          ),
         ],
       );
     }

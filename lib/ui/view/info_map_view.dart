@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/shared/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InfoMapView extends StatelessWidget {

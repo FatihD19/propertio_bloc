@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:propertio_mobile/bloc/developer/developer_bloc.dart';
-import 'package:propertio_mobile/data/model/developer_model.dart';
-import 'package:propertio_mobile/shared/theme.dart';
+import 'package:propertio_bloc/bloc/developer/developer_bloc.dart';
+import 'package:propertio_bloc/data/model/developer_model.dart';
+import 'package:propertio_bloc/shared/theme.dart';
 
-import 'package:propertio_mobile/ui/component/pagination_button.dart';
-import 'package:propertio_mobile/ui/component/text_failure.dart';
-import 'package:propertio_mobile/ui/view/detail_info_agen_view.dart';
-import 'package:propertio_mobile/ui/widgets/proyek_card.dart';
+import 'package:propertio_bloc/ui/component/pagination_button.dart';
+import 'package:propertio_bloc/ui/component/text_failure.dart';
+import 'package:propertio_bloc/ui/view/detail_info_agen_view.dart';
+import 'package:propertio_bloc/ui/widgets/proyek_card.dart';
 
 class DeveloperPage extends StatefulWidget {
   final String id;

@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:propertio_mobile/data/datasource/auth_local_datasource.dart';
-import 'package:propertio_mobile/data/model/request/udpate_profil_request_model.dart';
-import 'package:propertio_mobile/data/model/responses/profil_response_model.dart';
-import 'package:propertio_mobile/shared/api_path.dart';
-import 'package:propertio_mobile/shared/utils.dart';
+import 'package:propertio_bloc/data/datasource/auth_local_datasource.dart';
+import 'package:propertio_bloc/data/model/request/udpate_profil_request_model.dart';
+import 'package:propertio_bloc/data/model/responses/profil_response_model.dart';
+import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/shared/utils.dart';
 
 class ProfileRemoteDataSource {
   Future<Either<String, ProfilResponseModel>> getProfile() async {
@@ -79,23 +79,6 @@ class ProfileRemoteDataSource {
       return Right(ProfilResponseModel.fromJson(jsonDecode(responseString)));
     } else {
       return Left('Server Error');
-    }
-  }
-
-  Future<bool> resetPassword(ResetPasswordRequestModel request) async {
-    var url = Uri.parse(ApiPath.baseUrl + '/v1/reset-password');
-    final token = await AuthLocalDataSource.getToken();
-    final response = await http.post(url,
-        headers: {
-          'Authorization': token,
-        },
-        body: request.toJson());
-
-    print(response.body);
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
     }
   }
 }

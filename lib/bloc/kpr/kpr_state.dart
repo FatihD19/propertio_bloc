@@ -14,7 +14,14 @@ final class KprInitial extends KprState {
   List<Object> get props => [];
 }
 
-final class KprLoading extends KprState {}
+final class KprLoaded extends KprState {
+  LoanSimulationResult installmentResults;
+
+  KprLoaded(this.installmentResults);
+
+  @override
+  List<Object> get props => [installmentResults];
+}
 
 final class KprError extends KprState {
   final String message;
@@ -25,11 +32,10 @@ final class KprError extends KprState {
   List<Object> get props => [message];
 }
 
-final class KprLoaded extends KprState {
-  LoanSimulationResult installmentResults;
-
-  KprLoaded(this.installmentResults);
+final class PropertyPriceEmpty extends KprState {
+  const PropertyPriceEmpty();
 
   @override
-  List<Object> get props => [installmentResults];
+  List<Object> get props => [];
 }
+

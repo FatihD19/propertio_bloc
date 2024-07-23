@@ -7,17 +7,6 @@ sealed class FavoriteEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class OnGetFavoriteProperty extends FavoriteEvent {
-  int? page;
-
-  OnGetFavoriteProperty({this.page});
-
-  @override
-  List<Object> get props => [
-        {page}
-      ];
-}
-
 class OnGetFavoriteProject extends FavoriteEvent {
   int? page;
 

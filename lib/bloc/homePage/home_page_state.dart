@@ -14,7 +14,7 @@ final class HomePageLoading extends HomePageState {}
 final class HomePageLoaded extends HomePageState {
   final HomePageModel homePageModel;
 
-  const HomePageLoaded(this.homePageModel);
+  HomePageLoaded(this.homePageModel);
 
   @override
   List<Object> get props => [homePageModel];

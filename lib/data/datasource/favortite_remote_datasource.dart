@@ -5,7 +5,7 @@ import 'package:propertio_bloc/data/model/responses/project_favorite_response_mo
 import 'dart:convert';
 
 import 'package:propertio_bloc/data/model/responses/property_favorite_response_model.dart';
-import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/constants/api_path.dart';
 import 'package:propertio_bloc/shared/utils.dart';
 
 class FavoriteRemoteDataSource {

@@ -14,8 +14,8 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   ProjectBloc(this._projectRemoteDataSource) : super(ProjectInitial()) {
     on<OnGetProject>((event, emit) async {
       emit(ProjectLoading());
-      final result = await ProjectRemoteDataSource()
-          .getProject(query: event.query, page: event.page, type: event.type);
+      final result = await _projectRemoteDataSource.getProject(
+          query: event.query, page: event.page, type: event.type);
       result.fold(
         (l) => emit(ProjectError(l)),
         (r) => emit(ProjectLoaded(r)),
@@ -25,7 +25,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     on<OnGetDetailProject>((event, emit) async {
       emit(ProjectLoading());
       final result =
-          await ProjectRemoteDataSource().getDetailProject(event.slug);
+          await _projectRemoteDataSource.getDetailProject(event.slug);
       result.fold(
         (l) => emit(ProjectError(l)),
         (r) => emit(ProjectDetailLoaded(r)),

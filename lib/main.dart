@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:propertio_bloc/bloc/agent/agent_bloc.dart';
 import 'package:propertio_bloc/bloc/auth/auth_bloc.dart';
 
-import 'package:propertio_bloc/bloc/developer/developer_bloc.dart';
 import 'package:propertio_bloc/bloc/favorite/favorite_bloc.dart';
 import 'package:propertio_bloc/bloc/homePage/home_page_bloc.dart';
 import 'package:propertio_bloc/bloc/kpr/kpr_cubit.dart';
@@ -16,16 +15,16 @@ import 'package:propertio_bloc/bloc/profile/profile_bloc.dart';
 import 'package:propertio_bloc/bloc/project/project_bloc.dart';
 import 'package:propertio_bloc/bloc/properti/properti_bloc.dart';
 import 'package:propertio_bloc/bloc/propertyType/property_type_bloc.dart';
-import 'package:propertio_bloc/bloc/sendMessage/send_message_bloc.dart';
+
 import 'package:propertio_bloc/bloc/unit/unit_bloc.dart';
 
 import 'package:propertio_bloc/injection.dart';
 
-import 'package:propertio_bloc/shared/theme.dart';
-import 'package:propertio_bloc/ui/pages/Auth/login_page.dart';
+import 'package:propertio_bloc/constants/theme.dart';
+import 'package:propertio_bloc/pages/Auth/login_page.dart';
 
-import 'package:propertio_bloc/ui/pages/dashboard.dart';
-import 'package:propertio_bloc/ui/pages/splash_page.dart';
+import 'package:propertio_bloc/pages/dashboard.dart';
+import 'package:propertio_bloc/pages/splash_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
@@ -54,13 +53,7 @@ class MyApp extends StatelessWidget {
           create: (context) => locator<ProjectBloc>()..add(OnGetProject()),
         ),
         BlocProvider(
-          create: (context) => PropertiBloc(),
-        ),
-        BlocProvider(
           create: (context) => locator<UnitBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => DeveloperBloc(),
         ),
         BlocProvider(
           create: (context) => locator<FavoriteBloc>(),
@@ -72,7 +65,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => locator<ProfileBloc>()..add(OnGetProfile()),
         ),
-        BlocProvider(create: (context) => locator<SendMessageBloc>()),
         BlocProvider(create: (context) => KprCubit()),
       ],
       child: MaterialApp(

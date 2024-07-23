@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:propertio_bloc/data/datasource/homepage_remote_datasource.dart';
 
 import 'package:propertio_bloc/data/model/responses/homepage_response_Model.dart';
-import 'package:propertio_bloc/ui/pages/Home/home_page.dart';
+import 'package:propertio_bloc/pages/Home/home_page.dart';
 
 part 'home_page_event.dart';
 part 'home_page_state.dart';

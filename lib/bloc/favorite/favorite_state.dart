@@ -11,15 +11,6 @@ final class FavoriteInitial extends FavoriteState {}
 
 final class FavoriteLoading extends FavoriteState {}
 
-final class FavoritePropertyLoaded extends FavoriteState {
-  final PropertyFavoriteResponseModel favoriteProperty;
-
-  const FavoritePropertyLoaded(this.favoriteProperty);
-
-  @override
-  List<Object> get props => [favoriteProperty];
-}
-
 final class FavoriteProjectLoaded extends FavoriteState {
   final ProjectFavoriteResponseModel favoriteProject;
 
@@ -29,9 +20,23 @@ final class FavoriteProjectLoaded extends FavoriteState {
   List<Object> get props => [favoriteProject];
 }
 
-class FavoriteSuccessAdd extends FavoriteState {}
+final class FavoriteSuccessAdd extends FavoriteState {
+  final String projectCode;
 
-class FavoriteSuccessDelete extends FavoriteState {}
+  const FavoriteSuccessAdd(this.projectCode);
+
+  @override
+  List<Object> get props => [projectCode];
+}
+
+final class FavoriteSuccessDelete extends FavoriteState {
+  final String projectCode;
+
+  const FavoriteSuccessDelete(this.projectCode);
+
+  @override
+  List<Object> get props => [projectCode];
+}
 
 final class FavoriteError extends FavoriteState {
   final String message;

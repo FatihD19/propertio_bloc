@@ -7,7 +7,7 @@ import 'package:propertio_bloc/data/datasource/auth_local_datasource.dart';
 import 'package:propertio_bloc/data/model/request/login_request_model.dart';
 import 'package:propertio_bloc/data/model/request/register_request_model.dart';
 import 'package:propertio_bloc/data/model/responses/login_response_model.dart';
-import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/constants/api_path.dart';
 import 'package:propertio_bloc/shared/utils.dart';
 
 class AuthRemoteDataSource {

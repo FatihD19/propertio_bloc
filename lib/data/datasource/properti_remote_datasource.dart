@@ -6,7 +6,7 @@ import 'package:propertio_bloc/data/model/responses/list_properti_response_model
 import 'package:propertio_bloc/data/model/responses/list_propertyType_Response_model.dart';
 import 'dart:convert';
 
-import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/constants/api_path.dart';
 import 'package:propertio_bloc/shared/utils.dart';
 
 class PropertiRemoteDataSource {

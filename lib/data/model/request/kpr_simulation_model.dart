@@ -1,23 +1,25 @@
+import 'package:equatable/equatable.dart';
+
 class LoanSimulationInput {
-  final double propertyPrice;
-  final double downPayment;
-  final double interestRate;
-  final int loanTerm;
+  double? propertyPrice;
+  double? downPayment;
+  double? interestRate;
+  int? loanTerm;
 
   LoanSimulationInput({
-    required this.propertyPrice,
-    required this.downPayment,
-    required this.interestRate,
-    required this.loanTerm,
+    this.propertyPrice,
+    this.downPayment,
+    this.interestRate,
+    this.loanTerm,
   });
 }
 
-class LoanSimulationResult {
-  double? monthlyInstallment;
-  double? summaryPrincipalLoan;
-  double? summaryInterestPrice;
-  double? summaryTotalLoan;
-  List<LoanForYear>? installmentByYear;
+class LoanSimulationResult extends Equatable {
+  final double? monthlyInstallment;
+  final double? summaryPrincipalLoan;
+  final double? summaryInterestPrice;
+  final double? summaryTotalLoan;
+  final List<LoanForYear>? installmentByYear;
 
   LoanSimulationResult({
     this.monthlyInstallment,
@@ -26,34 +28,26 @@ class LoanSimulationResult {
     this.summaryTotalLoan,
     this.installmentByYear,
   });
+
+  @override
+  List<Object?> get props => [
+        monthlyInstallment,
+        summaryPrincipalLoan,
+        summaryInterestPrice,
+        summaryTotalLoan,
+        installmentByYear,
+      ];
 }
 
-class LoanForYear {
-  int? year;
-  double? installment;
+class LoanForYear extends Equatable {
+  final int year;
+  final double installment;
 
   LoanForYear({
-    this.year,
-    this.installment,
+    required this.year,
+    required this.installment,
   });
-}
 
-class MortgageSimulationRequest {
-  final double propertyPrice;
-  final double downPayment;
-  final double interestRate;
-  final int loanTerm;
-
-  MortgageSimulationRequest({
-    required this.propertyPrice,
-    required this.downPayment,
-    required this.interestRate,
-    required this.loanTerm,
-  });
-}
-
-class MortgageSimulationResult {
-  final List<double> monthlyInstallments;
-
-  MortgageSimulationResult({required this.monthlyInstallments});
+  @override
+  List<Object?> get props => [year, installment];
 }

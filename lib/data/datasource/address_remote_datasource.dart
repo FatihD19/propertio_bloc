@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:propertio_bloc/data/model/responses/address_response_model.dart';
-import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/constants/api_path.dart';
 
 class AddressRemoteDataSource {
   Future<Either<String, List<ProvinceResponseModel>>> getProvince() async {

@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:propertio_bloc/bloc/agent/agent_bloc.dart';
@@ -12,7 +13,6 @@ import 'package:propertio_bloc/bloc/profile/profile_bloc.dart';
 import 'package:propertio_bloc/bloc/project/project_bloc.dart';
 import 'package:propertio_bloc/bloc/propertyType/property_type_bloc.dart';
 
-import 'package:propertio_bloc/bloc/sendMessage/send_message_bloc.dart';
 import 'package:propertio_bloc/bloc/unit/unit_bloc.dart';
 import 'package:propertio_bloc/data/datasource/address_remote_datasource.dart';
 import 'package:propertio_bloc/data/datasource/agent_remote_datasource.dart';
@@ -32,8 +32,6 @@ Future<void> initLocator() async {
   locator.registerFactory(() => HomePageBloc(locator()));
 
   locator.registerFactory(() => AuthBloc(locator(), locator()));
-
-  locator.registerFactory(() => SendMessageBloc(locator()));
 
   locator.registerFactory(() => AgentBloc(locator()));
   locator.registerFactory(() => ProjectBloc(locator()));
@@ -65,4 +63,8 @@ Future<void> initLocator() async {
       () => AgentRemoteDataSource());
   locator.registerLazySingleton<ProjectRemoteDataSource>(
       () => ProjectRemoteDataSource());
+
+  //external
+  final secureStorage = FlutterSecureStorage();
+  locator.registerLazySingleton(() => secureStorage);
 }

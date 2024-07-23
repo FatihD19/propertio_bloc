@@ -6,7 +6,7 @@ import 'package:propertio_bloc/data/model/responses/detail_unit_response_model.d
 import 'package:propertio_bloc/data/model/responses/list_project_response_model.dart';
 import 'dart:convert';
 
-import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/constants/api_path.dart';
 import 'package:propertio_bloc/shared/utils.dart';
 
 class ProjectRemoteDataSource {

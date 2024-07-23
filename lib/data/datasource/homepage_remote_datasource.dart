@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:propertio_bloc/data/datasource/auth_local_datasource.dart';
 import 'package:propertio_bloc/data/model/responses/homepage_response_Model.dart';
 
-import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/constants/api_path.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertio_bloc/shared/utils.dart';
 

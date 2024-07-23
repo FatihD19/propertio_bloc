@@ -12,8 +12,7 @@ class UnitBloc extends Bloc<UnitEvent, UnitState> {
   UnitBloc(this._projectRemoteDataSource) : super(UnitInitial()) {
     on<OnGetDetailUnit>((event, emit) async {
       emit(UnitLoading());
-      final result =
-          await ProjectRemoteDataSource().getDetailUnit(event.idUnit);
+      final result = await _projectRemoteDataSource.getDetailUnit(event.idUnit);
       result.fold(
         (l) => emit(UnitError(l)),
         (r) => emit(DetailUnitLoaded(r)),

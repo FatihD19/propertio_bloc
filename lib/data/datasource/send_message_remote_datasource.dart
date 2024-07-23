@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'package:propertio_bloc/data/model/request/send_message_request_model.dart';
 import 'dart:convert';
 
-import 'package:propertio_bloc/shared/api_path.dart';
+import 'package:propertio_bloc/constants/api_path.dart';
 import 'package:propertio_bloc/shared/utils.dart';
 
 class SendMessageRemoteDataSource {
